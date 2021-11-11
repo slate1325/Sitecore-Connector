@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brightcove.DataExchangeFramework", "Brightcove.DataExchangeFramework\Brightcove.DataExchangeFramework.csproj", "{028DBA01-B47E-47E8-9C64-F544EED03D98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97486ACF-676F-4204-954C-4E074FE1F6D5}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brightcove.Core", "Brightcove.Core\Brightcove.Core.csproj", "{DFA739F3-5236-48DB-A86C-792616D1FB2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brightcove.Core.Tests", "Brightcove.Core.Tests\Brightcove.Core.Tests.csproj", "{825DBC84-59CA-45CD-81C4-8F67D82EE965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brightcove.Web", "Brightcove.Web\Brightcove.Web.csproj", "{0F86FC49-0265-4600-B4C8-12F4595949D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{028DBA01-B47E-47E8-9C64-F544EED03D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{028DBA01-B47E-47E8-9C64-F544EED03D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{028DBA01-B47E-47E8-9C64-F544EED03D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{028DBA01-B47E-47E8-9C64-F544EED03D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA739F3-5236-48DB-A86C-792616D1FB2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA739F3-5236-48DB-A86C-792616D1FB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA739F3-5236-48DB-A86C-792616D1FB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA739F3-5236-48DB-A86C-792616D1FB2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825DBC84-59CA-45CD-81C4-8F67D82EE965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825DBC84-59CA-45CD-81C4-8F67D82EE965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825DBC84-59CA-45CD-81C4-8F67D82EE965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825DBC84-59CA-45CD-81C4-8F67D82EE965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F86FC49-0265-4600-B4C8-12F4595949D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F86FC49-0265-4600-B4C8-12F4595949D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F86FC49-0265-4600-B4C8-12F4595949D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F86FC49-0265-4600-B4C8-12F4595949D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E646E94-C8E4-4C67-8244-EB7810F19469}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Configuration.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal

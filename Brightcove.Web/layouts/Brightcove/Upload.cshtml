@@ -1,0 +1,182 @@
+﻿@using Sitecore.Data;
+@using Sitecore.Data.Items;
+@inherits System.Web.Mvc.WebViewPage
+
+@{
+    var accounts = Sitecore.Context.ContentDatabase.GetItem(new ID("{1ADBC873-DFBF-4C09-853E-AC71E6D59739}")).GetChildren().Where(i => i.TemplateID == new ID("{C657F8EF-4916-447F-9255-483ED2EEC562}"));
+}
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <title>Brightcove Uploader</title>
+    <link href="/sitecore modules/Web/Brightcove/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <form id="uploadFileForm" class="container">
+        <div class="row pt-3">
+            <div class="col-sm-2">
+                <h5>Accounts</h5>
+                @foreach (Item account in accounts)
+                {
+                    <div class="row">
+                        <div class="col">
+                            <input type="radio" name="accounts" id="@account.DisplayName" value="@account.ID" required />
+                            <label for="@account.DisplayName">@account.DisplayName</label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-10">
+                <div class="row mb-2">
+                    <div class="col">
+                        <input class="form-control" type="file" id="uploadFile">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span id="uploadFileError" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span id="uploadFileSuccess" class="text-success"></span>
+                    </div>
+                </div>
+                <div class="row d-none mt-2" id="uploadFileRow">
+                    <div class="row">
+                        <div class="col">
+                            <span class="fw-bold">File name:&nbsp;</span><span id="uploadFileName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="fw-bold">File size:&nbsp;</span><span id="uploadFileSize"></span><span>&nbsp;MB</span>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary" id="uploadFileButton">Start</button>
+                            <div id="uploadFileProgressBar" class="progress d-none">
+                                <div id="uploadFileProgress" class="progress-bar progress-bar-striped progress-bar-animated"></div>
+                            </div>
+                            <a id="uploadFileItem" href="" class="btn btn-primary d-none">Open item</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="/sitecore modules/Web/Brightcove/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        //Define variable here so it can be accessed across event handlers
+        var ingestData;
+
+        const uploadFileInput = document.getElementById('uploadFile');
+        uploadFileInput.onchange = function () {
+            const file = uploadFileInput.files[0];
+
+            $('#uploadFileName').html(file.name);
+            $('#uploadFileSize').html((file.size / 1000000.0).toFixed(2));
+            $("#uploadFileRow").removeClass("d-none");
+        }
+
+        const uploadFileForm = document.getElementById('uploadFileForm');
+        uploadFileForm.onsubmit = function (event) {
+            $("#uploadFile").addClass("d-none");
+            $("#uploadFileButton").addClass("d-none");
+
+            $.ajax({
+                type: "POST",
+                url: "/sitecore/shell/brightcove/upload",
+                success: startUpload,
+                error: handleError,
+                data: {
+                    accountItemId: $("input[name='accounts']:checked").val(),
+                    videoName: $("#uploadFileName").html()
+                }
+            })
+
+            event.preventDefault();
+        };
+
+        function startUpload(response) {
+            if (response != null && response != undefined && !response.Success) {
+                handleError(response);
+                return;
+            }
+
+            //Save for later use
+            ingestData = response;
+
+            $("#uploadFileProgressBar").removeClass("d-none");
+            const file = document.getElementById('uploadFile').files[0];
+
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+
+                    // Upload progress
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = Math.floor((evt.loaded / evt.total) * 100);
+                            //Do something with upload progress
+                            console.log(percentComplete);
+                            $("#uploadFileProgress").css("width", percentComplete + "%");
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                url: response.Data.SignedUrl,
+                type: 'PUT',
+                contentType: '',
+                data: file,
+                processData: false,
+                success: startIngest,
+                error: handleError
+            });
+        }
+
+        function startIngest(response) {
+            $.ajax({
+                url: "/sitecore/shell/brightcove/upload/ingest",
+                type: 'POST',
+                success: finishUpload,
+                error: handleError,
+                data: {
+                    accountItemId: $("input[name='accounts']:checked").val(),
+                    videoName: $("#uploadFileName").html(),
+                    videoId: ingestData.Data.VideoId,
+                    videoUrl: ingestData.Data.ApiRequestUrl
+                }
+            });
+        }
+
+        function finishUpload(response) {
+            if (response != null && response != undefined && !response.Success) {
+                handleError(response);
+                return;
+            }
+
+            $("#uploadFileSuccess").html("File has been successfully uploaded.");
+            $("#uploadFileProgressBar").addClass("d-none");
+
+            $("#uploadFileItem").prop("href", "/sitecore/shell/Applications/Content%20Editor.aspx?fo=" + response.Data);
+            $("#uploadFileItem").removeClass("d-none");
+        }
+
+        function handleError(response) {
+            var errorMessage = "An unexpected error has occured, please try again later."
+
+            if (response != null && response != undefined && response.Message != null && response.Message != undefined) {
+                errorMessage = response.Message
+            }
+
+            $("#uploadFileError").html(errorMessage);
+        }
+    </script>
+</body>
+</html>
