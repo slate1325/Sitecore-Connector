@@ -66,18 +66,31 @@ namespace Brightcove.DataExchangeFramework.Processors
                     return;
                 }
 
-                DateTime lastSyncTime = DateTime.Parse(item["LastSyncTime"]);
+                DateTime lastSyncTime = DateTime.UtcNow;
                 DateField lastModifiedTime = item.Fields["__Updated"];
+                bool isNewVideo = string.IsNullOrWhiteSpace(item["LastSyncTime"]);
 
-                //If the brightcove item has been modified since the last sync then send the updates to brightcove
-                //Unless the brightcove model has already been modified since the last sync (presumably outside of Sitecore)
-                if (lastModifiedTime.DateTime > lastSyncTime)
+                if (!isNewVideo)
                 {
-                    if (video.LastModifiedDate < lastSyncTime)
+                    lastSyncTime = DateTime.Parse(item["LastSyncTime"]);
+                }
+
+                //If the brightcove item has been modified since the last sync (or is new) then send the updates to brightcove
+                //Unless the brightcove model has already been modified since the last sync (presumably outside of Sitecore)
+                if (isNewVideo || lastModifiedTime.DateTime > lastSyncTime)
+                {
+                    if (isNewVideo || video.LastModifiedDate < lastSyncTime)
                     {
                         try
                         {
                             service.UpdateVideo(video);
+
+                            if (isNewVideo)
+                            {
+                                item.Editing.BeginEdit();
+                                item["LastSyncTime"] = DateTime.UtcNow.ToString();
+                                item.Editing.EndEdit();
+                            }
                         }
                         //This is hacky fix to silent ignore invalid custom fields
                         //This should be removed when a more permant solution is found
