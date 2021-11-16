@@ -1,0 +1,25 @@
+﻿---
+ID: "ee46a3a2-2417-4c9f-90fa-1d5fe412b2ba"
+Parent: "31250ad6-4d31-485e-a42c-8d4ade27b318"
+Template: "31250ad6-4d31-485e-a42c-8d4ade27b318"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Asset Item Pipeline Step/__Standard Values
+DB: master
+SharedFields:
+- ID: "3c7f78cc-0c5c-4076-80ef-9a49fda5ff96"
+  Hint: ConverterType
+  Value: Brightcove.DataExchangeFramework.Converters.ResolveAssetItemPipelineStepConverter, Brightcove.DataExchangeFramework
+- ID: "a83a2eb2-bfa1-4d3f-9f17-0cc6c9a91c42"
+  Hint: ProcessorType
+  Value: Brightcove.DataExchangeFramework.Processors.ResolveAssetItemPipelineStepProcessor, Brightcove.DataExchangeFramework
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211027T143126Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

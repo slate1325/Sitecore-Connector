@@ -1,0 +1,22 @@
+﻿---
+ID: "bd6dad9b-33e3-4c78-a48b-2e4c00f55a3e"
+Parent: "5719df16-ed63-4668-b2e0-cf6531577244"
+Template: "5719df16-ed63-4668-b2e0-cf6531577244"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Data Access/Value Accessors/Video Ids Property Value Accessor/__Standard Values
+DB: master
+SharedFields:
+- ID: "3c7f78cc-0c5c-4076-80ef-9a49fda5ff96"
+  Hint: ConverterType
+  Value: Brightcove.DataExchangeFramework.VideoIdsPropertyValueAccessorConverter, Brightcove.DataExchangeFramework
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20160310T175552Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

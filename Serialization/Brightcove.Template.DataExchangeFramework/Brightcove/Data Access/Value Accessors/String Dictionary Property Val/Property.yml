@@ -1,0 +1,18 @@
+﻿---
+ID: "84260ded-88b9-4a1e-9db9-7970c6c6bdea"
+Parent: "a8f0f3f3-2547-4852-aa0c-cbe9e73ba4b8"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Data Access/Value Accessors/String Dictionary Property Value Accessor/Property
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20160310T175548Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

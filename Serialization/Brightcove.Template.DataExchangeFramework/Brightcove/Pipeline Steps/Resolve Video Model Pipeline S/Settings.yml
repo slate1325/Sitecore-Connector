@@ -1,0 +1,14 @@
+﻿---
+ID: "c12a7210-75ea-4a7e-bea4-6c987305d1db"
+Parent: "67dc3bae-b571-4c3d-8f97-402f24df6cd7"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Video Model Pipeline Step/Settings
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T203951Z

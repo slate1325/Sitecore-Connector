@@ -1,0 +1,25 @@
+﻿---
+ID: "3916e0d4-74bd-4818-8caa-61f331c50199"
+Parent: "5b78bfbe-62a2-4219-91a1-049358cadff9"
+Template: "c657f8ef-4916-447f-9255-483ed2eec562"
+Path: /sitecore/templates/Branches/BrightcoveAccount/$name
+DB: master
+SharedFields:
+- ID: "80f4d332-3c57-4fc5-8096-2d2b4f7e3cd5"
+  Hint: Players
+  Type: Multilist
+  Value: 
+- ID: "f0c25f85-7f6d-44e1-9df8-86e6a7ee7039"
+  Hint: DefaultPlaylistPlayer
+  Value: 
+- ID: "f122fbae-16cf-4d7f-a351-55a0e80a35ca"
+  Hint: DefaultVideoPlayer
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T091032Z

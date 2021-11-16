@@ -1,0 +1,22 @@
+﻿---
+ID: "31250ad6-4d31-485e-a42c-8d4ade27b318"
+Parent: "a89b1763-a2ae-402f-b45d-c8890ad816c6"
+Template: "ab86861a-6030-46c5-b394-e8f99e8b87db"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Asset Item Pipeline Step
+DB: master
+SharedFields:
+- ID: "12c33f3f-86c5-43a5-aeb4-5598cec45116"
+  Hint: __Base template
+  Type: tree list
+  Value: "{D44AE29C-D708-4B3F-B04C-99E7F9288720}"
+- ID: "f7d48a55-2158-4f02-9356-756654404f73"
+  Hint: __Standard values
+  Value: "{EE46A3A2-2417-4C9F-90FA-1D5FE412B2BA}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211027T143054Z

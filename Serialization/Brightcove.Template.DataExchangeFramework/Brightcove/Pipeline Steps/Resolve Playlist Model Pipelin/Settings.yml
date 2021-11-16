@@ -1,0 +1,14 @@
+﻿---
+ID: "729dd4a3-9629-42a1-a175-ba5ef42f7e0c"
+Parent: "36f84a64-6bb9-42b0-8618-34191c705be0"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Playlist Model Pipeline Step/Settings
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T203951Z

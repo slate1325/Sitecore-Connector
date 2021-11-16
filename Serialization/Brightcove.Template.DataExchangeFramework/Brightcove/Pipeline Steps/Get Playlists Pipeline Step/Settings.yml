@@ -1,0 +1,14 @@
+﻿---
+ID: "7a39a598-bfcd-4c25-9a29-b43ecb713ca4"
+Parent: "8aa7daa5-c041-45a8-b406-918f3ea2d00c"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Get Playlists Pipeline Step/Settings
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T101303Z

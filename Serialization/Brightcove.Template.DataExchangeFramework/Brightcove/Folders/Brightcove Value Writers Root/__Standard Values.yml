@@ -1,0 +1,18 @@
+﻿---
+ID: "17e879c3-92f8-46d3-baa0-01143a62a9b2"
+Parent: "4eb3c0e7-877a-4519-b32c-fff98aa636d1"
+Template: "4eb3c0e7-877a-4519-b32c-fff98aa636d1"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Folders/Brightcove Value Writers Root/__Standard Values
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T202003Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

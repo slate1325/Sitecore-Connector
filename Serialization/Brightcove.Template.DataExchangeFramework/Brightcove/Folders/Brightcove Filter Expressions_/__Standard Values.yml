@@ -1,0 +1,18 @@
+﻿---
+ID: "2fd0314f-129a-4598-8c73-33b761e1ff11"
+Parent: "ca27cf49-d1c1-4907-bfff-bc9b95a88606"
+Template: "ca27cf49-d1c1-4907-bfff-bc9b95a88606"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Folders/Brightcove Filter Expressions Root/__Standard Values
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T202003Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

@@ -1,0 +1,14 @@
+﻿---
+ID: "c28947b4-e470-47be-9283-88715d52b2ed"
+Parent: "31250ad6-4d31-485e-a42c-8d4ade27b318"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Asset Item Pipeline Step/Brightcove Asset Item Location
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T132258Z
