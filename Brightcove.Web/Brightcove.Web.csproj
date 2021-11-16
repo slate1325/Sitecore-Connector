@@ -852,6 +852,7 @@
     <Content Include="App_Config\Include\Brightcove\Brightcove.Settings.config" />
     <Content Include="layouts\Brightcove\Upload.cshtml" />
     <Content Include="layouts\Brightcove\VideoTextTracks.cshtml" />
+    <Content Include="App_Config\Include\Brightcove\Brightcove.Settings.CM.config" />
     <None Include="packages.config" />
     <Content Include="sitecore modules\Web\Brightcove\Views\EmbedMedia.cshtml" />
     <Content Include="sitecore modules\Web\Brightcove\css\bootstrap-grid.css.map" />
