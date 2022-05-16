@@ -23,6 +23,7 @@ namespace Brightcove.DataExchangeFramework.Processors
     {
         protected Endpoint EndpointFrom { get; set; }
 
+
         protected override void ProcessPipelineStep(PipelineStep pipelineStep = null, PipelineContext pipelineContext = null, ILogger logger = null)
         {
             if (pipelineStep == null)

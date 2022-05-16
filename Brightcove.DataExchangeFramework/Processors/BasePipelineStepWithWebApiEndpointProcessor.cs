@@ -1,6 +1,8 @@
 ﻿using Brightcove.Core.Models;
 using Brightcove.Core.Services;
 using Brightcove.DataExchangeFramework.Settings;
+using Sitecore.Data.Fields;
+using Sitecore.Data.Items;
 using Sitecore.DataExchange.Attributes;
 using Sitecore.DataExchange.Contexts;
 using Sitecore.DataExchange.Converters.PipelineSteps;
@@ -9,6 +11,7 @@ using Sitecore.DataExchange.Models;
 using Sitecore.DataExchange.Plugins;
 using Sitecore.DataExchange.Processors.PipelineSteps;
 using Sitecore.DataExchange.Repositories;
+using Sitecore.SecurityModel;
 using Sitecore.Services.Core.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -27,7 +30,7 @@ namespace Brightcove.DataExchangeFramework.Processors
         {
             base.ProcessPipelineStep(pipelineStep, pipelineContext, logger);
 
-            if(pipelineContext.CriticalError)
+            if (pipelineContext.CriticalError)
             {
                 return;
             }
@@ -77,6 +80,42 @@ namespace Brightcove.DataExchangeFramework.Processors
                 pipelineContext.CriticalError = true;
                 return;
             }
+        }
+
+        public void SetFolderSettings(string folderName)
+        {
+            Sitecore.Data.Database masterDB = Sitecore.Configuration.Factory.GetDatabase("master");
+            Sitecore.Data.Items.Item node = masterDB.GetItem("/sitecore/media library/BrightCove/BrightCove Account/"+ folderName);
+            if (node == null)
+            {
+                Sitecore.Data.Items.Item parentNode = masterDB.GetItem("/sitecore/media library/BrightCove/BrightCove Account");
+                Sitecore.Data.Items.Item folder = masterDB.GetItem("/sitecore/templates/Common/Folder");
+                parentNode.Add(folderName, new TemplateItem(folder));
+
+                node = masterDB.GetItem("/sitecore/media library/BrightCove/BrightCove Account/"+ folderName);
+                using (new Sitecore.Data.Items.EditContext(node, SecurityCheck.Disable))
+                {
+                    IsBucketItemCheckBox(node).Checked = true;
+                }
+            }
+            else
+            {
+                using (new Sitecore.Data.Items.EditContext(node, SecurityCheck.Disable))
+                {
+                    if (!IsBucketItemCheck(node))
+                        IsBucketItemCheckBox(node).Checked = true;
+                }
+            }
+        }
+
+        public bool IsBucketItemCheck(Item item)
+        {
+            return (((item != null) && (item.Fields[Sitecore.Buckets.Util.Constants.IsBucket] != null)) && item.Fields[Sitecore.Buckets.Util.Constants.IsBucket].Value.Equals("1"));
+        }
+
+        public CheckboxField IsBucketItemCheckBox(Item item)
+        {
+            return item.Fields[Sitecore.Buckets.Util.Constants.IsBucket];
         }
     }
 }

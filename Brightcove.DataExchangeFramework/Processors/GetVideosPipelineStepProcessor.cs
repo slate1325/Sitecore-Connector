@@ -32,6 +32,8 @@ namespace Brightcove.DataExchangeFramework.Processors
             var dataSettings = new IterableDataSettings(data);
 
             pipelineContext.AddPlugin(dataSettings);
+
+            SetFolderSettings("Videos");
         }
 
         protected virtual IEnumerable<Video> GetIterableData(PipelineStep pipelineStep)
