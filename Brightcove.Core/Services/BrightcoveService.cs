@@ -20,12 +20,14 @@ namespace Brightcove.Core.Services
 
         readonly string cmsBaseUrl = "https://cms.api.brightcove.com/v1/accounts";
         readonly string ingestBaseUrl = "https://ingest.api.brightcove.com/v1/accounts";
+        readonly string playersBaseUrl = "https://players.api.brightcove.com/v1/accounts";
+        readonly string experienceBaseUrl = "https://experiences.api.brightcove.com/v1/accounts";
         readonly string accountId;
         readonly BrightcoveAuthenticationService authenticationService;
 
         public BrightcoveService(string accountId, string clientId, string clientSecret)
         {
-            if(string.IsNullOrWhiteSpace(accountId))
+            if (string.IsNullOrWhiteSpace(accountId))
             {
                 throw new ArgumentException("argument must not be null or empty", nameof(accountId));
             }
@@ -162,6 +164,46 @@ namespace Brightcove.Core.Services
             return JsonConvert.DeserializeObject<Video>(response.Content.ReadAsString());
         }
 
+        public Player CreatePlayer(string name, string description)
+        {
+            var playerRequest = new { name = name, description = description };
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Content = new StringContent(JsonConvert.SerializeObject(playerRequest), Encoding.UTF8, "application/json");
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri($"{playersBaseUrl}/{accountId}/players");
+
+            HttpResponseMessage response = SendRequest(request);
+            return JsonConvert.DeserializeObject<Player>(response.Content.ReadAsString());
+        }
+
+        public Player UpdatePlayer(Player player)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Method = new HttpMethod("PATCH");
+            request.RequestUri = new Uri($"{playersBaseUrl}/{accountId}/players/{player.Id}");
+
+            var newPlayer = new { name = player.Name, description = player.ShortDescription };
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(newPlayer), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = SendRequest(request);
+            return JsonConvert.DeserializeObject<Player>(response.Content.ReadAsString());
+        }
+
+        public void DeletePlayer(string playerId)
+        {
+            if (string.IsNullOrWhiteSpace(playerId))
+                return;
+
+            if (playerId.Contains(","))
+                throw new ArgumentException("the player ID must not contain any commas", nameof(playerId));
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri($"{playersBaseUrl}/{accountId}/players/{playerId}");
+            SendRequest(request);
+        }
+
         public PlayList UpdatePlaylist(PlayList playlist)
         {
             HttpRequestMessage request = new HttpRequestMessage();
@@ -209,15 +251,81 @@ namespace Brightcove.Core.Services
             return JsonConvert.DeserializeObject<List<Video>>(response.Content.ReadAsString());
         }
 
+        public PlayerList GetPlayers()
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{playersBaseUrl}/{accountId}/players");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            PlayerList players = JsonConvert.DeserializeObject<PlayerList>(response.Content.ReadAsString());
+            foreach (var p in players.Items)
+                p.LastSyncTime = DateTime.UtcNow;
+
+            return players;
+        }
+
+        public ExperienceList GetExperiences()
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{experienceBaseUrl}/{accountId}/experiences");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            return JsonConvert.DeserializeObject<ExperienceList>(response.Content.ReadAsString());
+        }
+
+        public bool TryGetPlayer(string playerId, out Player player)
+        {
+            if (string.IsNullOrWhiteSpace(playerId))
+            {
+                player = null;
+                return false;
+            }
+
+            if (playerId.Contains(","))
+            {
+                throw new ArgumentException("the video ID must not contain any commas", nameof(playerId));
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            HttpResponseMessage response;
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{playersBaseUrl}/{accountId}/players/{playerId}");
+
+            try
+            {
+                response = SendRequest(request);
+            }
+            catch (HttpStatusException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    player = null;
+                    return false;
+                }
+
+                throw ex;
+            }
+
+            player = JsonConvert.DeserializeObject<Player>(response.Content.ReadAsString());
+            return true;
+        }
+
         public bool TryGetVideo(string videoId, out Video video)
         {
-            if(string.IsNullOrWhiteSpace(videoId))
+            if (string.IsNullOrWhiteSpace(videoId))
             {
                 video = null;
                 return false;
             }
 
-            if(videoId.Contains(","))
+            if (videoId.Contains(","))
             {
                 throw new ArgumentException("the video ID must not contain any commas", nameof(videoId));
             }
@@ -232,9 +340,9 @@ namespace Brightcove.Core.Services
             {
                 response = SendRequest(request);
             }
-            catch(HttpStatusException ex)
+            catch (HttpStatusException ex)
             {
-                if(ex.Response.StatusCode == HttpStatusCode.NotFound)
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
                 {
                     video = null;
                     return false;

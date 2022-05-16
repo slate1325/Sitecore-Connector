@@ -30,6 +30,8 @@ namespace Brightcove.DataExchangeFramework.Processors
             var dataSettings = new IterableDataSettings(data);
 
             pipelineContext.AddPlugin(dataSettings);
+
+            SetFolderSettings("Playlists");
         }
 
         protected virtual IEnumerable<PlayList> GetIterableData(WebApiSettings settings, PipelineStep pipelineStep)
