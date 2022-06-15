@@ -2,7 +2,7 @@
 ID: "6a3b39af-c59a-4e3f-86c8-eb0e846cf6e6"
 Parent: "4f29cf13-c4b5-4805-8d6a-1b7fbc76c752"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/Brightcove/BrightcoveVideoPlayer/Brightcove Data/ID
+Path: /sitecore/templates/Brightcove/BrightcoveVideoPlayer/Brightcove Player Data/ID
 DB: master
 SharedFields:
 - ID: "21828437-ea4b-40a1-8c61-4ce60ea41db6"

@@ -1,0 +1,20 @@
+﻿---
+ID: "a4ab4318-0e72-4176-b4bf-d602066e9458"
+Parent: "c21c0867-89f1-43f2-85ad-013849158eee"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Get Experiences Pipeline Step/Settings
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T101303Z
+    - ID: "4c346442-e859-4efd-89b2-44aedf467d21"
+      Hint: __Valid to
+      Value: 
+    - ID: "c8f93afe-bfd4-4e8f-9c61-152559854661"
+      Hint: __Valid from
+      Value: 
