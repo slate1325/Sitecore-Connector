@@ -1,0 +1,25 @@
+﻿---
+ID: "046bf5ce-d945-4ed7-8988-b923e0f2a290"
+Parent: "90a88212-3a11-4b65-aaf0-2235f7454cca"
+Template: "d79a5f5c-9a5e-4b1c-b884-8e3b97caca2d"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Pipelines/Subpipelines/Update Video Models Pipeline/Update Video Model
+DB: master
+SharedFields:
+- ID: "506bad49-3da6-474c-acb5-7bcb509bfbd7"
+  Hint: Enabled
+  Type: Checkbox
+  Value: 1
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211014T050957Z
+    - ID: "9ffa3399-13a4-4e0c-add6-f4497c5266bb"
+      Hint: EndpointFrom
+      Value: "{17DF1FC5-386D-4783-9CC6-A31ABFCF6A48}"

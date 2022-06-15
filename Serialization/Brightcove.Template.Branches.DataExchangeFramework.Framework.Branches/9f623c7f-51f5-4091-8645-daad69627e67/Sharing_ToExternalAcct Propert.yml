@@ -1,0 +1,22 @@
+﻿---
+ID: "953df465-f91b-4e22-8f1d-37faa725a695"
+Parent: "9f623c7f-51f5-4091-8645-daad69627e67"
+Template: "630c0748-9a38-4233-ab61-38983fd009d6"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Video Model Properties/Sharing_ToExternalAcct Property
+DB: master
+SharedFields:
+- ID: "158781df-aa2e-4ea9-8d84-a668b11450d7"
+  Hint: PropertyName
+  Value: Sharing.ToExternalAcct
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211004T222012Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

@@ -1,0 +1,22 @@
+﻿---
+ID: "39b696d1-af22-4c5f-a33a-ee7b1cfebd12"
+Parent: "273c31c4-2f80-4699-930f-b0cf7c213143"
+Template: "6f7375cc-9942-4e30-8c63-95281b69c65f"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Sitecore/Playlist Item Fields/Favorite Field
+DB: master
+SharedFields:
+- ID: "a011c1d5-1c40-4420-8592-d0ce0306e0dd"
+  Hint: Field
+  Value: "{1D354E71-8722-4096-9C02-0C5AE1BEC4AB}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211013T014838Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

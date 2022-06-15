@@ -1,0 +1,28 @@
+﻿---
+ID: "a7d78b1c-6b64-436c-a18f-6f4134e0b203"
+Parent: "d1ea517f-793c-4b06-9c53-38c219ac4563"
+Template: "b2613cc1-a748-46a3-a0db-3774574bd339"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Tenants/Brightcove Tenant
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Office/32x32/network_node2.png
+- ID: "854cc8f6-94ad-4521-a4b6-44ed8f794c98"
+  Hint: Command
+  Value: "dataExchange:createTenant(branchId={1A8DB091-5B22-402B-BB2C-215068772F46})"
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20170506T201851Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

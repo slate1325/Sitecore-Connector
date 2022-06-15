@@ -1,0 +1,21 @@
+﻿---
+ID: "17df1fc5-386d-4783-9cc6-a31abfcf6a48"
+Parent: "bcbde6a8-bc86-4b21-9953-2a608c14daf4"
+Template: "59cb8c44-3c39-4ab5-9b51-0900b14aaf4f"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Endpoints/Providers/Brightcove/Web API Endpoint
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T123934Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "ce9b1680-d02e-4c6d-846b-ce36427b5ca7"
+      Hint: Account
+      Value: "{5ED797ED-C4F5-42CB-8F9A-B2515D3B53E3}"

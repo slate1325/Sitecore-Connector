@@ -1,0 +1,30 @@
+﻿---
+ID: "4b68d422-c90d-4b8f-ac68-9f7b7a6c9aa2"
+Parent: "1bda36da-527d-4c04-8d44-5f53f429fa2d"
+Template: "075c4fbd-f54e-4e6d-bd54-d49bda0913d8"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Pipeline Batches/Sync Pipeline Batch
+DB: master
+SharedFields:
+- ID: "9061beea-df25-4b2b-a698-3f5b4e867d18"
+  Hint: Pipelines
+  Type: Treelist
+  Value: |
+    {0FA57D58-C489-482B-A24E-4B62C330DDBE}
+    {E334BE1E-4DEB-46EB-9F63-D4BC983F316C}
+    {F5F4B6E9-9DBA-4A3E-B24D-0F0902AC6EA8}
+    {3558D737-2162-46F5-ACE9-928C98ABECB0}
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 450
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211103T180747Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

@@ -1,0 +1,23 @@
+﻿---
+ID: "3bd05866-dd08-48e6-8ae6-b42223977bc6"
+Parent: "034df6f0-d4b6-45fa-b330-ad357fc3b7f4"
+Template: "e45f46f1-7172-49da-99c2-5d2fbbbe32cd"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Mappings Applied Action Rules
+DB: master
+BranchID: "0d21226f-7b04-4ff2-9230-b55245cf6fe7"
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{3BD05866-DD08-48E6-8AE6-B42223977BC6}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T212037Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

@@ -1,0 +1,22 @@
+﻿---
+ID: "c76989d8-013b-452f-964c-f088eac093dc"
+Parent: "95a7dd1b-b743-4d96-b8d3-0991cae3b708"
+Template: "630c0748-9a38-4233-ab61-38983fd009d6"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Playlist Model Properties/PlayListSearch_TagInclusion
+DB: master
+SharedFields:
+- ID: "158781df-aa2e-4ea9-8d84-a668b11450d7"
+  Hint: PropertyName
+  Value: PlayListSearch.TagInclusion
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211013T020358Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

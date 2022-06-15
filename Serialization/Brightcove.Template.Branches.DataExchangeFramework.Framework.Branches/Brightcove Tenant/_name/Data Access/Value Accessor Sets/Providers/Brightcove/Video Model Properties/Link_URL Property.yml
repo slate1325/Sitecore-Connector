@@ -1,0 +1,22 @@
+﻿---
+ID: "50d1ee2e-5b87-479a-ba6d-c08f5569f270"
+Parent: "9f623c7f-51f5-4091-8645-daad69627e67"
+Template: "630c0748-9a38-4233-ab61-38983fd009d6"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Video Model Properties/Link_URL Property
+DB: master
+SharedFields:
+- ID: "158781df-aa2e-4ea9-8d84-a668b11450d7"
+  Hint: PropertyName
+  Value: Link.URL
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210924T202235Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
