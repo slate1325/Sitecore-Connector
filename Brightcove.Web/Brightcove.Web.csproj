@@ -710,7 +710,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\packages\brightcove.video.connect.xml" />
     <Content Include="Global.asax" />
     <Content Include="layouts\Brightcove\Sublayouts\EmbedMediaPlayer.ascx" />
     <Content Include="layouts\Brightcove\Sublayouts\Player.aspx" />
