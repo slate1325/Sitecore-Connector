@@ -19,13 +19,19 @@ namespace Brightcove.DataExchangeFramework.Converters
         {
             base.AddPlugins(source, pipelineStep);
 
-            Item endpointItem = Sitecore.Context.ContentDatabase.GetItem(new ID(this.GetGuidValue(source, "BrightcoveEndpoint")));
+            Guid endpointId = this.GetGuidValue(source, "BrightcoveEndpoint");
+            ResolveAssetItemSettings resolveAssetItemSettings = new ResolveAssetItemSettings();
 
-            ResolveAssetItemSettings resolveAssetItemSettings = new ResolveAssetItemSettings()
+            if (endpointId != null)
             {
-                AcccountItemId = endpointItem["Account"],
-                RelativePath = this.GetStringValue(source, "RelativePath")
-            };
+                Item endpointItem = Sitecore.Context.ContentDatabase.GetItem(new ID(endpointId));
+
+                if (endpointItem != null)
+                {
+                    resolveAssetItemSettings.AcccountItemId = endpointItem["Account"];
+                    resolveAssetItemSettings.RelativePath = this.GetStringValue(source, "RelativePath") ?? "";
+                }
+            }
 
             pipelineStep.AddPlugin<ResolveAssetItemSettings>(resolveAssetItemSettings);
         }

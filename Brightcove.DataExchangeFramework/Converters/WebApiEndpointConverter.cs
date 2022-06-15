@@ -28,12 +28,14 @@ namespace Brightcove.DataExchangeFramework.Converters
             Guid accountItemId = this.GetGuidValue(source, TemplateAccount);
             Item accountItem = Sitecore.Context.ContentDatabase.GetItem(new ID(accountItemId));
 
-            WebApiSettings accountSettings = new WebApiSettings
+            WebApiSettings accountSettings = new WebApiSettings();
+
+            if(accountItem != null)
             {
-                AccountId = accountItem["AccountId"],
-                ClientId = accountItem["ClientId"],
-                ClientSecret = accountItem["ClientSecret"]
-            };
+                accountSettings.AccountId = accountItem["AccountId"];
+                accountSettings.ClientId = accountItem["ClientId"];
+                accountSettings.ClientSecret = accountItem["ClientSecret"];
+            }
 
             endpoint.AddPlugin(accountSettings);
         }
