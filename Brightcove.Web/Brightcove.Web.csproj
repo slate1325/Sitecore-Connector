@@ -784,7 +784,6 @@
     <Content Include="Views\BrightCove\BasicLayout.cshtml" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
-    <Content Include="App_Config\Include\Unicorn\Unicorn.Configs.Brightcove.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.DataProvider.10.1.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.PowerShell.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.UI.config" />
