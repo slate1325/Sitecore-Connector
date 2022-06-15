@@ -387,3 +387,9 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 /package.zip
+
+
+
+# Brightcove
+Brightcove.Web/App_Config/Include/Unicorn/Unicorn.Configs.Brightcove.config
+
