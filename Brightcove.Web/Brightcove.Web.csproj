@@ -783,6 +783,13 @@
     <Content Include="sitecore\shell\Themes\Standard\Brightcove\48x48\logo.png" />
     <Content Include="Views\BrightCove\ExperienceRendering.cshtml" />
     <Content Include="Views\BrightCove\BasicLayout.cshtml" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.Configs.Brightcove.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.DataProvider.10.1.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.PowerShell.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.UI.config" />
+    <Content Include="App_Config\Include\Unicorn\Unicorn.UI.IdentityServer.config" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -879,19 +886,6 @@
     <Content Include="App_Config\Include\Brightcove\Brightcove.Settings.CM.config" />
     <Content Include="App_Config\Include\Rainbow.config" />
     <None Include="App_Config\Include\Unicorn\Unicorn.zSharedSecret.config.example" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.UI.IdentityServer.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.UI.DeployedContentEditorWarnings.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.UI.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Remote.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.PowerShell.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Dilithium.config.example" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Configs.Brightcove.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.DataProvider.10.1.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Configs.NewItemsOnly.example" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Configs.Dependency.config.example" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.Configs.Default.example" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.config.disabled" />
-    <None Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config.disabled" />
     <None Include="packages.config" />
     <Content Include="sitecore modules\Web\Brightcove\Views\EmbedMedia.cshtml" />
     <Content Include="sitecore modules\Web\Brightcove\css\bootstrap-grid.css.map" />
