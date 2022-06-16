@@ -99,6 +99,34 @@ namespace Brightcove.Core.Services
             return playlist;
         }
 
+        public VideoVariant CreateVideoVariant(string videoId, string videoName, string language)
+        {
+            VideoVariant videoVariant = new VideoVariant();
+            videoVariant.Language = language;
+            videoVariant.Name = videoName;
+
+            if (videoId.Contains(","))
+            {
+                throw new ArgumentException("the video ID must not contain any commas", nameof(videoId));
+            }
+
+            if (string.IsNullOrWhiteSpace(videoName))
+            {
+                throw new ArgumentException("the video name cannnot be null or empty string", nameof(videoName));
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Content = new StringContent(JsonConvert.SerializeObject(videoVariant), Encoding.UTF8, "application/json");
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/videos/{videoId}/variants");
+
+            HttpResponseMessage response = SendRequest(request);
+            videoVariant = JsonConvert.DeserializeObject<VideoVariant>(response.Content.ReadAsString());
+            videoVariant.Id = videoId;
+
+            return videoVariant;
+        }
+
         public void DeletePlaylist(string playlistId)
         {
             if (string.IsNullOrWhiteSpace(playlistId))
@@ -143,6 +171,28 @@ namespace Brightcove.Core.Services
             return;
         }
 
+        public void DeleteVideoVariant(string videoId, string language)
+        {
+            if (string.IsNullOrWhiteSpace(videoId))
+            {
+                return;
+            }
+
+            if (videoId.Contains(","))
+            {
+                throw new ArgumentException("the video ID must not contain any commas", nameof(videoId));
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/videos/{videoId}/variants/{language}");
+
+            SendRequest(request);
+
+            return;
+        }
+
         public Video UpdateVideo(Video video)
         {
             HttpRequestMessage request = new HttpRequestMessage();
@@ -163,6 +213,26 @@ namespace Brightcove.Core.Services
 
             return JsonConvert.DeserializeObject<Video>(response.Content.ReadAsString());
         }
+
+        public VideoVariant UpdateVideoVariant(VideoVariant videoVariant)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = new HttpMethod("PATCH");
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/videos/{videoVariant.Id}/variants/{videoVariant.Language}");
+
+            //Some properties will cause an invalid response because they are not updateable
+            //Setting the property to null should remove it from the serialized request
+            //Use shallowcopy to avoid side-effects caused by mutating the reference
+            VideoVariant newVideoVariant = videoVariant.ShallowCopy();
+            newVideoVariant.Language = null;
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(newVideoVariant), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = SendRequest(request);
+
+            return JsonConvert.DeserializeObject<VideoVariant>(response.Content.ReadAsString());
+        }
+
 
         public Player CreatePlayer(string name, string description)
         {
@@ -249,6 +319,21 @@ namespace Brightcove.Core.Services
             HttpResponseMessage response = SendRequest(request);
 
             return JsonConvert.DeserializeObject<List<Video>>(response.Content.ReadAsString());
+        }
+
+        public IEnumerable<VideoVariant> GetVideoVariants(string videoId)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/videos/{videoId}/variants");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            var results = JsonConvert.DeserializeObject<List<VideoVariant>>(response.Content.ReadAsString());
+            results.ForEach(r => r.Id = videoId);
+
+            return results;
         }
 
         public PlayerList GetPlayers()
@@ -352,6 +437,47 @@ namespace Brightcove.Core.Services
             }
 
             video = JsonConvert.DeserializeObject<Video>(response.Content.ReadAsString());
+            return true;
+        }
+
+
+        public bool TryGetVideoVariant(string videoId, string language, out VideoVariant videoVariant)
+        {
+            if (string.IsNullOrWhiteSpace(videoId))
+            {
+                videoVariant = null;
+                return false;
+            }
+
+            if (videoId.Contains(","))
+            {
+                throw new ArgumentException("the video ID must not contain any commas", nameof(videoId));
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            HttpResponseMessage response;
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/videos/{videoId}/variants/{language}");
+
+            try
+            {
+                response = SendRequest(request);
+            }
+            catch (HttpStatusException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    videoVariant = null;
+                    return false;
+                }
+
+                throw ex;
+            }
+
+            videoVariant = JsonConvert.DeserializeObject<VideoVariant>(response.Content.ReadAsString());
+            videoVariant.Id = videoId;
+
             return true;
         }
 
