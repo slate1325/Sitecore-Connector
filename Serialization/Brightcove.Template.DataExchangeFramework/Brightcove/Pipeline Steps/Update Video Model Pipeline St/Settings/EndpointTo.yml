@@ -2,7 +2,7 @@
 ID: "9ffa3399-13a4-4e0c-add6-f4497c5266bb"
 Parent: "cb31fdc9-bc1b-4da6-8a04-5b5fd1688d91"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Model Pipeline Step/Settings/EndpointFrom
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Model Pipeline Step/Settings/EndpointTo
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
