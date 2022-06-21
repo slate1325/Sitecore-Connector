@@ -57,12 +57,12 @@ namespace Brightcove.DataExchangeFramework.Processors
 
         protected T GetPluginOrFail<T>(IHasPlugins source) where T: IPlugin
         {
-            T plugin = source.GetPlugin<T>();
-
             if(source == null)
             {
                 throw new Exception($"Could not load plugin '{typeof(T)}' because the source is null. Please make sure the pipeline step has been configured properly.");
             }
+
+            T plugin = source.GetPlugin<T>();
 
             if (plugin == null)
             {

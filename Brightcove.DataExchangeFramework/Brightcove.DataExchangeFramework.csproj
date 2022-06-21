@@ -441,6 +441,7 @@
     <Compile Include="Converters\PipelineStepWithEndpointFromConverter.cs" />
     <Compile Include="Converters\NullableEnumValueReaderConverter.cs" />
     <Compile Include="Converters\ReadAssetItemsPipelineStepConverter.cs" />
+    <Compile Include="Converters\UpdateModelPipelineStepConverter.cs" />
     <Compile Include="Converters\UpdateItemPipelineStepConverter.cs" />
     <Compile Include="Converters\WebApiEndpointConverter.cs" />
     <Compile Include="Converters\ResolveAssetItemPipelineStepConverter.cs" />
