@@ -1,0 +1,14 @@
+﻿---
+ID: "e99e488c-56ce-4c07-8cfa-35121e936b7a"
+Parent: "f598d123-2fe9-45d3-99e2-3e4b5063190a"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Settings
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T203951Z
