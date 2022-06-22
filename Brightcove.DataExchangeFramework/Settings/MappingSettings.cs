@@ -8,9 +8,9 @@ namespace Brightcove.DataExchangeFramework.Settings
 {
     public class MappingSettings : IPlugin
     {
-        public IEnumerable<IMappingSet> MappingSets { get; set; }
+        public IEnumerable<IMappingSet> ModelMappingSets { get; set; }
 
-        //public IEnumerable<IMappingsAppliedAction> MappingsAppliedActions { get; set; }
+        public IEnumerable<IMappingSet> VariantMappingSets { get; set; }
 
         public Guid SourceObjectLocation { get; set; }
 

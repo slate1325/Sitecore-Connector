@@ -22,7 +22,7 @@ namespace Brightcove.DataExchangeFramework.Converters
         {
             MappingSettings mappingSettings = new MappingSettings()
             {
-                MappingSets = this.ConvertReferencesToModels<IMappingSet>(source, "MappingSet"),
+                ModelMappingSets = this.ConvertReferencesToModels<IMappingSet>(source, "MappingSet"),
                 //MappingsAppliedActions = this.ConvertReferencesToModels<IMappingsAppliedAction>(source, "Actions"),
                 SourceObjectLocation = this.GetGuidValue(source, "SourceObjectLocation"),
                 TargetObjectLocation = this.GetGuidValue(source, "TargetObjectLocation")

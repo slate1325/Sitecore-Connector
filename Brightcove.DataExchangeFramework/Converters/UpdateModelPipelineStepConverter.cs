@@ -22,8 +22,8 @@ namespace Brightcove.DataExchangeFramework.Converters
         {
             MappingSettings mappingSettings = new MappingSettings()
             {
-                MappingSets = this.ConvertReferencesToModels<IMappingSet>(source, "MappingSet"),
-                //MappingsAppliedActions = this.ConvertReferencesToModels<IMappingsAppliedAction>(source, "Actions"),
+                ModelMappingSets = this.ConvertReferencesToModels<IMappingSet>(source, "ModelMappingSets"),
+                VariantMappingSets = this.ConvertReferencesToModels<IMappingSet>(source, "VariantMappingSets"),
                 SourceObjectLocation = this.GetGuidValue(source, "SourceObjectLocation"),
                 TargetObjectLocation = this.GetGuidValue(source, "TargetObjectLocation")
             };
@@ -32,7 +32,8 @@ namespace Brightcove.DataExchangeFramework.Converters
 
             EndpointSettings endpointSettings = new EndpointSettings()
             {
-                EndpointTo = this.ConvertReferenceToModel<Endpoint>(source, "EndpointTo")
+                EndpointTo = this.ConvertReferenceToModel<Endpoint>(source, "EndpointTo"),
+                EndpointFrom = this.ConvertReferenceToModel<Endpoint>(source, "EndpointFrom")
             };
 
             pipelineStep.AddPlugin<EndpointSettings>(endpointSettings);
@@ -65,16 +66,16 @@ namespace Brightcove.DataExchangeFramework.Converters
                 return;
             }
 
-            WebApiSettings accountSettings = new WebApiSettings();
+            WebApiSettings webApiSettings = new WebApiSettings();
 
             if (accountItem != null)
             {
-                accountSettings.AccountId = accountItem["AccountId"];
-                accountSettings.ClientId = accountItem["ClientId"];
-                accountSettings.ClientSecret = accountItem["ClientSecret"];
+                webApiSettings.AccountId = accountItem["AccountId"];
+                webApiSettings.ClientId = accountItem["ClientId"];
+                webApiSettings.ClientSecret = accountItem["ClientSecret"];
             }
 
-            endpointSettings.EndpointTo.AddPlugin(accountSettings);
+            endpointSettings.EndpointTo.AddPlugin(webApiSettings);
         }
     }
 }

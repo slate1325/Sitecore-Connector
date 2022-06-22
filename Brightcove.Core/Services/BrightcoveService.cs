@@ -99,20 +99,20 @@ namespace Brightcove.Core.Services
             return playlist;
         }
 
-        public VideoVariant CreateVideoVariant(string videoId, string videoName, string language)
+        public VideoVariant CreateVideoVariant(string videoId, string videoVariantName, string language)
         {
             VideoVariant videoVariant = new VideoVariant();
             videoVariant.Language = language;
-            videoVariant.Name = videoName;
+            videoVariant.Name = videoVariantName;
 
             if (videoId.Contains(","))
             {
                 throw new ArgumentException("the video ID must not contain any commas", nameof(videoId));
             }
 
-            if (string.IsNullOrWhiteSpace(videoName))
+            if (string.IsNullOrWhiteSpace(videoVariantName))
             {
-                throw new ArgumentException("the video name cannnot be null or empty string", nameof(videoName));
+                throw new ArgumentException("the video name cannnot be null or empty string", nameof(videoVariantName));
             }
 
             HttpRequestMessage request = new HttpRequestMessage();

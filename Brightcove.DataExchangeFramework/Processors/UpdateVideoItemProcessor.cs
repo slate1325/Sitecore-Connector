@@ -40,7 +40,7 @@ namespace Brightcove.DataExchangeFramework.Processors
                 item = (ItemModel)this.GetObjectFromPipelineContext(mappingSettings.TargetObjectLocation, pipelineContext, logger);
                 model = (Video)this.GetObjectFromPipelineContext(mappingSettings.SourceObjectLocation, pipelineContext, logger);
 
-                foreach (IMappingSet mappingSet in mappingSettings.MappingSets)
+                foreach (IMappingSet mappingSet in mappingSettings.ModelMappingSets)
                 {
                     var mappingContext = Mapper.ApplyMapping(mappingSet, model, item);
 
