@@ -1,0 +1,14 @@
+﻿---
+ID: "870978d6-2ccb-4aba-b36b-b56a3277008d"
+Parent: "ea5d79c0-2375-4f96-9087-52585cc4a137"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Brightcove/Brightcove Synchronization Metadata/Synchronization Metadata
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220622T000022Z
