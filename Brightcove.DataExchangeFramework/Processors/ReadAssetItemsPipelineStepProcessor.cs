@@ -53,7 +53,7 @@ namespace Brightcove.DataExchangeFramework.Processors
             {
                 var query = context.GetQueryable<SearchResultItem>().Where(x => x.Path.Contains(bucketPath) && x.Path != bucketPath);
 
-                if(templateGuid != null)
+                if(templateGuid != Guid.Empty)
                 {
                     ID templateId = new ID(templateGuid);
                     query = query.Where(x => x.TemplateId == templateId);
