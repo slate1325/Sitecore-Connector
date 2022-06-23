@@ -1,19 +1,19 @@
 ﻿---
-ID: "6fd1d4a3-5c75-463c-9c22-8c2e2bf510f9"
+ID: "09deb248-722b-4c7e-8407-9e58d43ebc53"
 Parent: "11330de1-c3ca-406b-8b4f-3bdef0946413"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Mapping/Actions
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Mapping/VariantMappingSets
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
   Hint: Source
-  Value: "query:./ancestor-or-self::*[@@templateid='{327A381B-59F8-4E88-B331-BEBC7BD87E4E}']//descendant-or-self::*[@@templateid='{47BE8904-BBAC-4C35-A2E6-BACC963BC881}']"
+  Value: "query:./ancestor-or-self::*[@@templateid='{327A381B-59F8-4E88-B331-BEBC7BD87E4E}']//descendant-or-self::*[@@templateid='{00DCA38D-89AC-42C4-9E24-FE19EB81BC36}']"
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
   Hint: Type
   Value: Treelist
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 200
+  Value: 50
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
@@ -21,12 +21,12 @@ SharedFields:
 Languages:
 - Language: en
   Fields:
-  - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
-    Hint: __Short description
-    Value: The selected actions are applied if the mapping set is applied successfully
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Variant Mapping Set
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20161012T114929Z
+      Value: 20160225T174422Z

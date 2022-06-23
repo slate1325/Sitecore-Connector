@@ -10,7 +10,7 @@ SharedFields:
   Value: Applications/16x16/document.png
 - ID: "3c7f78cc-0c5c-4076-80ef-9a49fda5ff96"
   Hint: ConverterType
-  Value: Brightcove.DataExchangeFramework.Converters.UpdateItemPipelineStepConverter, Brightcove.DataExchangeFramework
+  Value: Brightcove.DataExchangeFramework.Converters.UpdatePipelineStepConverter, Brightcove.DataExchangeFramework
 - ID: "6f5c88f3-cbfa-42b0-8cd6-3d1bed0605ca"
   Hint: AssetItemLocation
   Value: "{17DF1143-A38D-4C77-A933-E66B5ED21E9A}"

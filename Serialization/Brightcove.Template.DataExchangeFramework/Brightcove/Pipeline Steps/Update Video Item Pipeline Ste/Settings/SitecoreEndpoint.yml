@@ -1,8 +1,8 @@
 ﻿---
-ID: "2a155ec6-c986-4272-bcf8-1e63b6cceb02"
-Parent: "cb31fdc9-bc1b-4da6-8a04-5b5fd1688d91"
+ID: "65f1d8ec-0254-4b0c-9122-062079c37999"
+Parent: "e99e488c-56ce-4c07-8cfa-35121e936b7a"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Model Pipeline Step/Endpoints/EndpointFrom
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Settings/SitecoreEndpoint
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"

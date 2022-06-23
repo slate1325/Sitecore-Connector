@@ -1,8 +1,8 @@
 ﻿---
-ID: "c7173a34-549e-4e74-8402-eb7cc095c0f1"
+ID: "994c8fbe-a1f3-47a2-a48d-0630c8ed811c"
 Parent: "11330de1-c3ca-406b-8b4f-3bdef0946413"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Mapping/MappingSet
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Update Video Item Pipeline Step/Mapping/ModelMappingSets
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
@@ -23,7 +23,7 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Mapping Set
+    Value: Model Mapping Set
   Versions:
   - Version: 1
     Fields:
