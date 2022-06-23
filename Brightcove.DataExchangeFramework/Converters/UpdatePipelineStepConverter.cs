@@ -13,10 +13,10 @@ using System;
 
 namespace Brightcove.DataExchangeFramework.Converters
 {
-    [SupportedIds("{D79A5F5C-9A5E-4B1C-B884-8E3B97CACA2D}")]
-    public class UpdateModelPipelineStepConverter : BasePipelineStepConverter
+    [SupportedIds("{D79A5F5C-9A5E-4B1C-B884-8E3B97CACA2D}", "{F598D123-2FE9-45D3-99E2-3E4B5063190A}")]
+    public class UpdatePipelineStepConverter : BasePipelineStepConverter
     {
-        public UpdateModelPipelineStepConverter(IItemModelRepository repository) : base(repository) { }
+        public UpdatePipelineStepConverter(IItemModelRepository repository) : base(repository) { }
 
         protected override void AddPlugins(ItemModel source, PipelineStep pipelineStep)
         {
@@ -30,15 +30,15 @@ namespace Brightcove.DataExchangeFramework.Converters
 
             pipelineStep.AddPlugin<MappingSettings>(mappingSettings);
 
-            EndpointSettings endpointSettings = new EndpointSettings()
+            BrightcoveEndpointSettings endpointSettings = new BrightcoveEndpointSettings()
             {
-                EndpointTo = this.ConvertReferenceToModel<Endpoint>(source, "EndpointTo"),
-                EndpointFrom = this.ConvertReferenceToModel<Endpoint>(source, "EndpointFrom")
+                BrightcoveEndpoint = this.ConvertReferenceToModel<Endpoint>(source, "BrightcoveEndpoint"),
+                SitecoreEndpoint = this.ConvertReferenceToModel<Endpoint>(source, "SitecoreEndpoint")
             };
 
-            pipelineStep.AddPlugin<EndpointSettings>(endpointSettings);
+            pipelineStep.AddPlugin<BrightcoveEndpointSettings>(endpointSettings);
 
-            Guid endpointId = this.GetGuidValue(source, "EndpointTo");
+            Guid endpointId = this.GetGuidValue(source, "BrightcoveEndpoint");
 
             if(endpointId == null)
             {
@@ -75,7 +75,7 @@ namespace Brightcove.DataExchangeFramework.Converters
                 webApiSettings.ClientSecret = accountItem["ClientSecret"];
             }
 
-            endpointSettings.EndpointTo.AddPlugin(webApiSettings);
+            endpointSettings.BrightcoveEndpoint.AddPlugin(webApiSettings);
         }
     }
 }

@@ -26,11 +26,16 @@ namespace Brightcove.DataExchangeFramework.Processors
 {
     public class UpdateVideoItemProcessor : BasePipelineStepProcessor
     {
+        BrightcoveService service;
+        IItemModelRepository itemModelRepository;
+
         protected override void ProcessPipelineStepInternal(PipelineStep pipelineStep = null, PipelineContext pipelineContext = null, ILogger logger = null)
         {
             var mappingSettings = GetPluginOrFail<MappingSettings>();
-            var endpointSettings = GetPluginOrFail<EndpointSettings>();
-            var itemModelRepository = GetPluginOrFail<ItemModelRepositorySettings>(endpointSettings.EndpointTo).ItemModelRepository;
+            var endpointSettings = GetPluginOrFail<BrightcoveEndpointSettings>();
+            var webApiSettings = GetPluginOrFail<WebApiSettings>(endpointSettings.BrightcoveEndpoint);
+            itemModelRepository = GetPluginOrFail<ItemModelRepositorySettings>(endpointSettings.SitecoreEndpoint).ItemModelRepository;
+            service = new BrightcoveService(webApiSettings.AccountId, webApiSettings.ClientId, webApiSettings.ClientSecret);
 
             ItemModel item = null;
             Video model = null;
@@ -62,6 +67,8 @@ namespace Brightcove.DataExchangeFramework.Processors
                 {
                     LogDebug($"Updated the item '{item.GetItemId()}'");
                 }
+
+                UpdateVariants(mappingSettings.VariantMappingSets, item, model);
             }
             catch(Exception ex)
             {
@@ -69,18 +76,59 @@ namespace Brightcove.DataExchangeFramework.Processors
             }
         }
 
-        /*
-        private void UpdateVariants(ItemModel item, Video video)
+
+        private void UpdateVariants(IEnumerable<IMappingSet> mappingSets, ItemModel videoItem, Video video)
         {
-            //var itemm = Sitecore.Context.ContentDatabase.GetItem(new ID(item.GetItemId()));
-            BrightcoveService service = null;
-            var variants = service.GetVideoVariants(video.Id);
+            var videoVariants = service.GetVideoVariants(video.Id);
 
-            if(variants.Any())
+            foreach(VideoVariant videoVariant in videoVariants)
             {
-
+                ItemModel videoVariantItem = ResolveVideoVariant(videoItem, videoVariant);
+                ApplyMappings(mappingSets, videoVariant, videoVariantItem);
+                UpdateVideoVariant(videoVariantItem);
             }
         }
-        */
+
+        private void ApplyMappings(IEnumerable<IMappingSet> mappingSets, object model, ItemModel item)
+        {
+            foreach (IMappingSet mappingSet in mappingSets)
+            {
+                var mappingContext = Mapper.ApplyMapping(mappingSet, model, item);
+
+                if (Mapper.HasErrors(mappingContext))
+                {
+                    LogError($"Failed to apply mapping to the model '{item.GetItemId()}': {Mapper.GetFailedMappings(mappingContext)}");
+                }
+                else
+                {
+                    LogDebug($"Applied mapping to the model '{item.GetItemId()}'");
+                }
+            }
+        }
+
+        private ItemModel ResolveVideoVariant(ItemModel videoItem, VideoVariant videoVariant)
+        {
+            ItemModel variantItem = itemModelRepository.GetChildren(videoItem.GetItemId()).Where(c => c["Language"].ToString() == videoVariant.Language).FirstOrDefault();
+
+            if (variantItem == null)
+            {
+                Guid variantItemId = itemModelRepository.Create(ItemUtil.ProposeValidItemName(videoVariant.Name), new Guid("{A7EAF4FD-BCF3-4511-9E8C-2ED0B165F1D6}"), videoItem.GetItemId());
+                variantItem = itemModelRepository.Get(variantItemId);
+            }
+
+            return variantItem;
+        }
+
+        private void UpdateVideoVariant(ItemModel item)
+        {
+            if (!ItemUpdater.Update(itemModelRepository, item))
+            {
+                LogError($"Failed to update the variant '{item.GetItemId()}'");
+            }
+            else
+            {
+                LogDebug($"Updated the variant '{item.GetItemId()}'");
+            }
+        }
     }
 }

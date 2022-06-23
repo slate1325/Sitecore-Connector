@@ -32,9 +32,9 @@ namespace Brightcove.DataExchangeFramework.Processors
         protected override void ProcessPipelineStepInternal(PipelineStep pipelineStep = null, PipelineContext pipelineContext = null, ILogger logger = null)
         {
             var mappingSettings = GetPluginOrFail<MappingSettings>();
-            var endpointSettings = GetPluginOrFail<EndpointSettings>();
-            var webApiSettings = GetPluginOrFail<WebApiSettings>(endpointSettings.EndpointTo);
-            itemModelRepository = GetPluginOrFail<ItemModelRepositorySettings>(endpointSettings.EndpointFrom).ItemModelRepository;
+            var endpointSettings = GetPluginOrFail<BrightcoveEndpointSettings>();
+            var webApiSettings = GetPluginOrFail<WebApiSettings>(endpointSettings.BrightcoveEndpoint);
+            itemModelRepository = GetPluginOrFail<ItemModelRepositorySettings>(endpointSettings.SitecoreEndpoint).ItemModelRepository;
 
             service = new BrightcoveService(webApiSettings.AccountId, webApiSettings.ClientId, webApiSettings.ClientSecret);
 
@@ -89,7 +89,7 @@ namespace Brightcove.DataExchangeFramework.Processors
                     LogDebug($"Ignored the brightcove item '{item.ID}' because it has not been updated since last sync");
                 }
 
-                HandleVariants(itemModelRepository, mappingSettings.VariantMappingSets, itemModel, video);
+                UpdateVariants(itemModelRepository, mappingSettings.VariantMappingSets, itemModel, video);
             }
             catch(Exception ex)
             {
@@ -156,7 +156,7 @@ namespace Brightcove.DataExchangeFramework.Processors
             }
         }
 
-        public void HandleVariants(IItemModelRepository itemModelRepository, IEnumerable<IMappingSet> mappingSets, ItemModel item, Video model)
+        public void UpdateVariants(IItemModelRepository itemModelRepository, IEnumerable<IMappingSet> mappingSets, ItemModel item, Video model)
         {
             var variantItems = itemModelRepository.GetChildren(item.GetItemId());
 
@@ -170,6 +170,11 @@ namespace Brightcove.DataExchangeFramework.Processors
                     };
 
                     ApplyMappings(mappingSets, variantItem, variantModel);
+
+                    if(!ResolveVideoVariant(variantModel, variantItem))
+                    {
+                        return;
+                    }    
 
                     if(DeleteVideoVariant(variantModel, variantItem))
                     {
@@ -208,6 +213,18 @@ namespace Brightcove.DataExchangeFramework.Processors
                     LogError($"An unexpected error occured updating the variant '{variantItem.GetItemId()}'", ex);
                 }
             }
+        }
+
+        public bool ResolveVideoVariant(VideoVariant videoVariant, ItemModel item)
+        {
+            if(!service.TryGetVideoVariant(videoVariant.Id, videoVariant.Language, out _))
+            {
+                itemModelRepository.Delete(item.GetItemId());
+                LogWarn($"Deleting the item '{item.GetItemId()}' because it could not be resolved to the model '{videoVariant.Id}:{videoVariant.Language}'");
+                return false;
+            }
+
+            return true;
         }
 
         public void CreateVideoVariant(VideoVariant videoVariant, ItemModel item)
