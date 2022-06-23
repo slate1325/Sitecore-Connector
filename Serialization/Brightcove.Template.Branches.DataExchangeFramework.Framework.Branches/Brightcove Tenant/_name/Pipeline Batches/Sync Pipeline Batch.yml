@@ -5,6 +5,13 @@ Template: "075c4fbd-f54e-4e6d-bd54-d49bda0913d8"
 Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Pipeline Batches/Sync Pipeline Batch
 DB: master
 SharedFields:
+- ID: "2aa5c591-ff55-411d-96c0-978bb2c58b94"
+  Hint: Log
+  Value: |
+    C:\inetpub\wwwroot\brightcovesc.dev.local\App_Data\logs\DataExchange\$name\Sync.Pipeline.Batch.20220623.161247.txt
+- ID: "6a2b2cbb-4338-4814-a8a9-9fecbb90456a"
+  Hint: LastRunFinished
+  Value: 20220623T161259Z
 - ID: "9061beea-df25-4b2b-a698-3f5b4e867d18"
   Hint: Pipelines
   Type: Treelist
@@ -16,6 +23,9 @@ SharedFields:
     {3558D737-2162-46F5-ACE9-928C98ABECB0}
     {11D1A819-2E6D-45DC-8F36-68D1635E4592}
     {DDFE0AA5-FB5F-45F0-8E91-6B2F4FD55185}
+- ID: "985ba535-0f3e-4da8-a768-a469026de9db"
+  Hint: RequestedAt
+  Value: 20220623T161247Z
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 450
@@ -23,7 +33,6 @@ SharedFields:
   Hint: LogLevels
   Type: Checklist
   Value: |
-    {9A08C19F-6B54-4C4A-A53A-A797E5356E57}
     {FB228585-8B23-49D0-9677-F7147756F321}
     {77391479-9575-4FBA-9719-3B50FA19A50B}
     {F7729D4A-D12D-4D0B-849D-02CD4AC18D2D}

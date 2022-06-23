@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "2d120995-c8ef-44c9-9827-b6e5ef8fbb5c"
   Hint: EndpointFrom
-  Value: "{C8B3CCC6-2404-45EF-8001-D8709B4D0DE7}"
+  Value: "{B869F0C0-9743-452A-B019-015FF0845A1F}"
 - ID: "a6a0c985-bcc2-4f06-99a1-62dd37d299aa"
   Hint: ItemRoot
   Value: "{1ADBC873-DFBF-4C09-853E-AC71E6D59739}"
@@ -28,7 +28,7 @@ Languages:
         sitecore\Admin
     - ID: "68097dcb-1918-44cc-8fb5-cf000711dacf"
       Hint: BrightcoveEndpoint
-      Value: "{1531C9ED-EDF7-43CC-A9BC-5A7093B1063A}"
+      Value: "{17DF1FC5-386D-4783-9CC6-A31ABFCF6A48}"
     - ID: "8f7002ad-7a84-4320-a734-6e561e67d443"
       Hint: RelativePath
       Value: Players

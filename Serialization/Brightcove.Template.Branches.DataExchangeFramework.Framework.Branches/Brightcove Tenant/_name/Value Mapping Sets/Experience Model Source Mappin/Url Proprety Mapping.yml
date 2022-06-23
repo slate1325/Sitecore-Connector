@@ -8,7 +8,7 @@ SharedFields:
 - ID: "95184b45-efef-447c-9089-4f2ec5df26c5"
   Hint: SourceAccessor
   Type: Treelist
-  Value: "{FBE77E89-0848-478F-8454-A6B4E42053A5}"
+  Value: "{48FFFF60-A6DF-4EF6-86FD-685B676681B2}"
 - ID: "95885001-6243-4d7a-af10-90ad1326d6e2"
   Hint: IgnoreNullValues
   Type: Checkbox
@@ -18,7 +18,7 @@ SharedFields:
   Value: 350
 - ID: "ef84b462-7f4a-4f48-b78e-ade192d55e82"
   Hint: TargetAccessor
-  Value: "{BC542E29-2A49-4BE6-B673-B9B67951C931}"
+  Value: "{7A9B37F4-FC23-4F77-BB3B-7819B845FA30}"
 - ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
   Hint: __Originator
   Value: "{5A8CA73E-53F5-4828-9BA1-D94BD1861A29}"

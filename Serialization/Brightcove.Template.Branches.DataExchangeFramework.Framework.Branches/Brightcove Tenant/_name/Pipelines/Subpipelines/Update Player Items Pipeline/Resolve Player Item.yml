@@ -1,10 +1,9 @@
 ﻿---
-ID: "e116e2f4-352e-4a00-a938-2b6027699dc7"
-Parent: "4e84572a-b578-46c1-a7f6-b09b543ba152"
+ID: "1a3bea30-d346-4eb5-960c-b540ddee6fe6"
+Parent: "66c52e36-fb67-4007-9f8a-94b8a36f94f4"
 Template: "31250ad6-4d31-485e-a42c-8d4ade27b318"
-Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Pipelines/Subpipelines/Update Video Items Pipeline/Resolve Video Item
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Pipelines/Subpipelines/Update Player Items Pipeline/Resolve Player Item
 DB: master
-BranchID: "1a8db091-5b22-402b-bb2c-215068772f46"
 SharedFields:
 - ID: "010e5d89-6409-4fbc-843b-ceb84c8ed3bb"
   Hint: IdentifierObjectLocation
@@ -14,7 +13,7 @@ SharedFields:
   Value: "{320C6E74-2CEF-4D30-9843-C441086A18A2}"
 - ID: "3798a7e3-61ff-4ba3-b8ba-f5cba2929517"
   Hint: TemplateForNewItem
-  Value: "{6A5C6835-6E11-4602-A11D-B626E9255397}"
+  Value: "{DE0F5BB5-1D51-41B2-BA4D-2C176C904BF3}"
 - ID: "4ce9ed44-bc7f-44e5-886d-97d9a6890faa"
   Hint: IdentifierValueAccessor
   Value: "{D914A7AA-5FA9-49E7-8298-75A8C699C5C1}"
@@ -32,7 +31,7 @@ SharedFields:
   Value: "{FF8E9462-EC8C-45EB-B26C-A2388D0A113D}"
 - ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
   Hint: __Originator
-  Value: "{2A2BF744-D1AB-4951-9EDA-8091E421742E}"
+  Value: "{7EB2B37C-C445-4BBC-8D5D-A28FE8E14958}"
 Languages:
 - Language: en
   Versions:
@@ -40,14 +39,10 @@ Languages:
     Fields:
     - ID: "186d0a4b-a7a7-4da1-9163-61da5f0fec8a"
       Hint: RelativePath
-      Value: Videos
+      Value: Players
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20220615T040810Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\Anonymous
+      Value: 20220406T132500Z
     - ID: "cb7ac2ec-a881-403d-923a-2ab00cbe334a"
       Hint: BrightcoveEndpoint
       Value: "{17DF1FC5-386D-4783-9CC6-A31ABFCF6A48}"
