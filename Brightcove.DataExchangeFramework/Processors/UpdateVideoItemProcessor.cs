@@ -121,6 +121,8 @@ namespace Brightcove.DataExchangeFramework.Processors
 
         private void UpdateVideoVariant(ItemModel item)
         {
+            item["LastSyncTime"] = DateTime.UtcNow.ToString();
+
             if (!ItemUpdater.Update(itemModelRepository, item))
             {
                 LogError($"Failed to update the variant '{item.GetItemId()}'");
