@@ -217,6 +217,12 @@ namespace Brightcove.DataExchangeFramework.Processors
 
         public bool ResolveVideoVariant(VideoVariant videoVariant, ItemModel item)
         {
+            //If variant is new then continue
+            if(string.IsNullOrWhiteSpace((string)item["LastSyncTime"]))
+            {
+                return true;
+            }
+
             if(!service.TryGetVideoVariant(videoVariant.Id, videoVariant.Language, out _))
             {
                 itemModelRepository.Delete(item.GetItemId());
