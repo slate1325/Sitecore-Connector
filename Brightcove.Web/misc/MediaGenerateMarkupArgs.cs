@@ -54,5 +54,7 @@ namespace Sitecore.MediaFramework.Pipelines.MediaGenerateMarkup
     /// Gets or sets the markup.
     /// </summary>
     public PlayerMarkupResult Result { get; set; }
+
+        public string Language { get; set; } = "";
   }
 }
