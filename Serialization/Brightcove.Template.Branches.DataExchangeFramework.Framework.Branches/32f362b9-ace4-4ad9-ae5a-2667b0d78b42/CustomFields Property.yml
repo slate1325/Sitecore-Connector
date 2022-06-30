@@ -1,0 +1,26 @@
+﻿---
+ID: "5319dc15-f6d3-4546-b677-5dd33fae9623"
+Parent: "32f362b9-ace4-4ad9-ae5a-2667b0d78b42"
+Template: "a8f0f3f3-2547-4852-aa0c-cbe9e73ba4b8"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Video Variant Model Properties/CustomFields Property
+DB: master
+BranchID: "1a8db091-5b22-402b-bb2c-215068772f46"
+SharedFields:
+- ID: "4a318007-e5b3-4986-bead-64987f181093"
+  Hint: PropertyName
+  Value: CustomFields
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{00AFA462-6A39-45CB-BB97-F92AA6BFA4E3}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220615T040806Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

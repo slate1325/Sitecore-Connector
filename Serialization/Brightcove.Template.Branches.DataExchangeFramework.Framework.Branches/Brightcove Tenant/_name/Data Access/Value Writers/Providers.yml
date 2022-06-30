@@ -1,0 +1,23 @@
+﻿---
+ID: "8780d6e3-fb0c-4e07-a9bd-8771347a00f4"
+Parent: "2c20d442-ec72-42ad-a213-1bfd7b519245"
+Template: "8d195ba6-f598-44dc-915a-a0bcb2daaffd"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Writers/Providers
+DB: master
+BranchID: "0d21226f-7b04-4ff2-9230-b55245cf6fe7"
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{8780D6E3-FB0C-4E07-A9BD-8771347A00F4}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T212038Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

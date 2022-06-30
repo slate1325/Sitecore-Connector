@@ -67,6 +67,7 @@
     <Compile Include="Models\PlayListSearch.cs" />
     <Compile Include="Models\TagInclusion.cs" />
     <Compile Include="Models\TextTrack.cs" />
+    <Compile Include="Models\VideoVariant.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Models\VideoLink.cs" />
     <Compile Include="Models\VideoSharing.cs" />

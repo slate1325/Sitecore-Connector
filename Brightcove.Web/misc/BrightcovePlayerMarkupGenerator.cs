@@ -128,6 +128,7 @@ namespace Brightcove.MediaFramework.Brightcove.Players
             string muted = String.Empty;
             string assetId = "";
             string showPlaylists = "";
+            string languageEmbed = "";
 
             // Add autoplay
             if (args.Properties.Collection[BrightcovePlayerParameters.EmbedStyle] != null)
@@ -162,9 +163,14 @@ namespace Brightcove.MediaFramework.Brightcove.Players
                 showPlaylists = "<ol class='vjs-playlist'></ol>";
             }
 
+            if(!string.IsNullOrWhiteSpace(args.Language))
+            {
+                languageEmbed = $"lang='{args.Language}'";
+            }
+
             //data-item-id='{args.Properties.ItemId}'
             return $@"{responsive}
-                <video {assetId}
+                <video {languageEmbed} {assetId}
                   data-account='{args.AccountItem[BrightcovePlayerParameters.AccountId]}' 
 	                data-player='{args.PlayerItem[BrightcovePlayerParameters.PlayerId]}' 
 	                data-embed='default' 
@@ -269,10 +275,10 @@ namespace Brightcove.MediaFramework.Brightcove.Players
             }
 
             // Set player id for player
-            if (args.PlayerItem != null && !args.PlayerItem[FieldIDs.Player.Id].IsNullOrEmpty())
+            if (args.PlayerItem != null && !args.PlayerItem["ID"].IsNullOrEmpty())
             {
-                dictionary["data-player"] = args.PlayerItem[FieldIDs.Player.Id];
-                scriptUrl = scriptUrl.Replace(PlayerToken, args.PlayerItem[FieldIDs.Player.Id]);
+                dictionary["data-player"] = args.PlayerItem["ID"].ToString();
+                scriptUrl = scriptUrl.Replace(PlayerToken, args.PlayerItem["ID"].ToString());
             }
 
             // Set account id for player
@@ -294,6 +300,12 @@ namespace Brightcove.MediaFramework.Brightcove.Players
                     dictionary["data-playlist-id"] = args.MediaItem[FieldIDs.MediaElement.Id];
                 }
             }
+
+            if(!string.IsNullOrWhiteSpace(args.Language))
+            {
+                dictionary["lang"] = args.Language;
+            }
+
             //add cms version
             /*string sitecoreVersion = About.Version;
             string connectorVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -307,7 +319,7 @@ namespace Brightcove.MediaFramework.Brightcove.Players
             if (args.AccountItem != null && args.PlayerItem != null)
             {
                 var publisherId = args.AccountItem[FieldIDs.Account.AccountId];
-                var playerId = args.PlayerItem[FieldIDs.Player.Id];
+                var playerId = args.PlayerItem["ID"];
 
                 if (!publisherId.IsNullOrEmpty() && !playerId.IsNullOrEmpty())
                 {

@@ -1,0 +1,34 @@
+﻿---
+ID: "30abb8e9-3c60-4fc6-bc34-60d645fe5ff2"
+Parent: "4d1d3fe1-398a-49da-ad65-0dd6f2c992ec"
+Template: "4d1d3fe1-398a-49da-ad65-0dd6f2c992ec"
+Path: /sitecore/templates/Data Exchange/Providers/Brightcove/Pipeline Steps/Resolve Player Model Pipeline Step/__Standard Values
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Applications/16x16/document.png
+- ID: "3c7f78cc-0c5c-4076-80ef-9a49fda5ff96"
+  Hint: ConverterType
+  Value: Brightcove.DataExchangeFramework.Converters.ResolveOrUpdateAssetModelPipelineStepConverter, Brightcove.DataExchangeFramework
+- ID: "5b469e85-8a25-413e-ae2f-c5eedaaae02b"
+  Hint: AssetModelLocation
+  Value: "{EC64487D-E7E6-40B0-A86C-40C74B95E04E}"
+- ID: "7db5ceaf-7cb9-457a-b1bc-3bb634118f4d"
+  Hint: AssetItemLocation
+  Value: "{17DF1143-A38D-4C77-A933-E66B5ED21E9A}"
+- ID: "a83a2eb2-bfa1-4d3f-9f17-0cc6c9a91c42"
+  Hint: ProcessorType
+  Value: Brightcove.DataExchangeFramework.Processors.ResolvePlayerModelPipelineStepProcessor, Brightcove.DataExchangeFramework
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T205319Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

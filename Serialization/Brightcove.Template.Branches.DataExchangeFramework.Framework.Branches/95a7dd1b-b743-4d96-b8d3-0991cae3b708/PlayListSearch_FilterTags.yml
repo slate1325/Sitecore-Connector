@@ -1,0 +1,22 @@
+﻿---
+ID: "f0988682-35ed-4ff9-80eb-665cc8fe92fa"
+Parent: "95a7dd1b-b743-4d96-b8d3-0991cae3b708"
+Template: "3a68c21b-5b14-48ba-875a-8da2c42afb91"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Playlist Model Properties/PlayListSearch_FilterTags
+DB: master
+SharedFields:
+- ID: "dd54c8e3-a38c-44f5-9823-5262178329d8"
+  Hint: PropertyName
+  Value: PlayListSearch.FilterTags
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211013T020442Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

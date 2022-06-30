@@ -1,0 +1,28 @@
+﻿---
+ID: "c76be0a5-0408-49c3-a96c-d611783a9410"
+Parent: "9f623c7f-51f5-4091-8645-daad69627e67"
+Template: "729aeffb-b5bd-4cd4-958f-e25b50948ac8"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Video Model Properties/LastModifiedDate Property
+DB: master
+SharedFields:
+- ID: "06fd1c3e-a7f7-4cd2-a54e-a995d7a9e4de"
+  Hint: PropertyName
+  Value: LastModifiedDate
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
+- ID: "e08e3c9c-a3c1-447b-ae78-0aea3a691e6e"
+  Hint: ValueReader
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210923T020609Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

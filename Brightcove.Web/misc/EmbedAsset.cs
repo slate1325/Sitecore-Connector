@@ -41,7 +41,9 @@
 
     protected Combobox PlayersList;
 
-    protected ID SourceItemID
+        protected Edit AssetLanguage;
+
+     protected ID SourceItemID
     {
       get
       {
@@ -282,7 +284,8 @@
         MarkupType = MarkupType.Frame,
         Properties = playerProperties,
         MediaItem = Sitecore.Context.ContentDatabase.GetItem(SourceItemID),
-        PlayerItem = Sitecore.Context.ContentDatabase.GetItem(playerProperties.PlayerId)
+        PlayerItem = Sitecore.Context.ContentDatabase.GetItem(playerProperties.PlayerId),
+        Language = AssetLanguage.Value
       };
 
             args.AccountItem = Sitecore.Context.ContentDatabase.GetItem(string.Join("/", args.MediaItem.Paths.Path.Split('/').Take(5)));

@@ -42,16 +42,24 @@ namespace Brightcove.DataExchangeFramework.Processors
             string bucketPath = GetAssetParentItemMediaPath(pipelineContext);
             string indexName = $"sitecore_{itemModelRepository.DatabaseName}_index";
 
-            return Search(bucketPath, indexName);
+            return Search(bucketPath, indexName, readSitecoreItemModelsSettings.TemplateIds.FirstOrDefault());
         }
 
-        public virtual IEnumerable<ItemModel> Search(string bucketPath, string indexName)
+        public virtual IEnumerable<ItemModel> Search(string bucketPath, string indexName, Guid templateGuid)
         {
             var index = ContentSearchManager.GetIndex(indexName);
 
             using (var context = index.CreateSearchContext())
             {
-                var searchResults = context.GetQueryable<SearchResultItem>().Where(x => x.Path.Contains(bucketPath) && x.Path != bucketPath).ToList();
+                var query = context.GetQueryable<SearchResultItem>().Where(x => x.Path.Contains(bucketPath) && x.Path != bucketPath);
+
+                if(templateGuid != Guid.Empty)
+                {
+                    ID templateId = new ID(templateGuid);
+                    query = query.Where(x => x.TemplateId == templateId);
+                }
+
+                var searchResults = query.ToList();
                 var itemModels = searchResults.Select(r => r.GetItem()?.GetItemModel()).Where(r => r != null);
 
                 return itemModels;

@@ -18,53 +18,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Brightcove.Core.Extensions;
+using Brightcove.DataExchangeFramework.Helpers;
+using Sitecore.DataExchange.Providers.Sc.Plugins;
+using Sitecore.Data;
 
 namespace Brightcove.DataExchangeFramework.Processors
 {
-    public class UpdateVideoModelPipelineStepProcessor : BasePipelineStepWithWebApiEndpointProcessor
+    public class UpdateVideoModelPipelineStepProcessor : BasePipelineStepProcessor
     {
         BrightcoveService service;
+        IItemModelRepository itemModelRepository;
 
-        protected override void ProcessPipelineStep(PipelineStep pipelineStep = null, PipelineContext pipelineContext = null, ILogger logger = null)
+        protected override void ProcessPipelineStepInternal(PipelineStep pipelineStep = null, PipelineContext pipelineContext = null, ILogger logger = null)
         {
-            base.ProcessPipelineStep(pipelineStep, pipelineContext, logger);
+            var mappingSettings = GetPluginOrFail<MappingSettings>();
+            var endpointSettings = GetPluginOrFail<BrightcoveEndpointSettings>();
+            var webApiSettings = GetPluginOrFail<WebApiSettings>(endpointSettings.BrightcoveEndpoint);
+            itemModelRepository = GetPluginOrFail<ItemModelRepositorySettings>(endpointSettings.SitecoreEndpoint).ItemModelRepository;
 
-            if (pipelineContext.CriticalError)
-            {
-                return;
-            }
+            service = new BrightcoveService(webApiSettings.AccountId, webApiSettings.ClientId, webApiSettings.ClientSecret);
 
-            var resolveAssetModelSettings = pipelineStep.GetPlugin<ResolveAssetModelSettings>();
-            if (resolveAssetModelSettings == null)
-            {
-                logger.Error(
-                    "No resolve asset model settings are specified for the pipeline step. " +
-                    "(pipeline step: {0})",
-                    pipelineStep.Name);
-
-                pipelineContext.CriticalError = true;
-                return;
-            }
+            Video video = null;
 
             try
             {
-                service = new BrightcoveService(WebApiSettings.AccountId, WebApiSettings.ClientId, WebApiSettings.ClientSecret);
-
-                Video video = (Video)pipelineContext.GetObjectFromPipelineContext(resolveAssetModelSettings.AssetModelLocation);
-                ItemModel itemModel = (ItemModel)pipelineContext.GetObjectFromPipelineContext(resolveAssetModelSettings.AssetItemLocation);
+                video = (Video)pipelineContext.GetObjectFromPipelineContext(mappingSettings.TargetObjectLocation);
+                ItemModel itemModel = (ItemModel)pipelineContext.GetObjectFromPipelineContext(mappingSettings.SourceObjectLocation);
                 Item item = Sitecore.Context.ContentDatabase.GetItem(itemModel.GetItemId().ToString());
-
-                //The item has been marked for deletion in Sitecore
-                if ((string)itemModel["Delete"] == "1")
-                {
-                    logger.Info($"Deleting the brightcove model '{video.Id}' because it has been marked for deletion in Sitecore (pipeline step: {pipelineStep.Name})");
-                    service.DeleteVideo(video.Id);
-
-                    logger.Info($"Deleting the brightcove item '{item.ID}' because it has been marked for deleteion in Sitecore '{itemModel.GetItemId()}' (pipeline step: {pipelineStep.Name})");
-                    item.Delete();
-
-                    return;
-                }
 
                 DateTime lastSyncTime = DateTime.UtcNow;
                 DateField lastModifiedTime = item.Fields["__Updated"];
@@ -75,57 +55,232 @@ namespace Brightcove.DataExchangeFramework.Processors
                     lastSyncTime = DateTime.Parse(item["LastSyncTime"]);
                 }
 
+                if (DeleteVideo(video, itemModel))
+                {
+                    return;
+                }
+
+                ApplyMappings(mappingSettings.ModelMappingSets, itemModel, video);
+
                 //If the brightcove item has been modified since the last sync (or is new) then send the updates to brightcove
                 //Unless the brightcove model has already been modified since the last sync (presumably outside of Sitecore)
                 if (isNewVideo || lastModifiedTime.DateTime > lastSyncTime)
                 {
                     if (isNewVideo || video.LastModifiedDate < lastSyncTime)
                     {
-                        try
+                        Updatevideo(video);
+
+                        if (isNewVideo)
                         {
-                            service.UpdateVideo(video);
-
-                            if (isNewVideo)
-                            {
-                                item.Editing.BeginEdit();
-                                item["LastSyncTime"] = DateTime.UtcNow.ToString();
-                                item.Editing.EndEdit();
-                            }
-                        }
-                        //This is hacky fix to silent ignore invalid custom fields
-                        //This should be removed when a more permant solution is found
-                        catch(HttpStatusException ex)
-                        {
-                            if ((int)ex.Response.StatusCode != 422)
-                                throw ex;
-
-                            string message = ex.Response.Content.ReadAsString();
-
-                            if (!message.Contains("custom_fields"))
-                                throw ex;
-
-                            //Rerun with the invalid custom fields removed so the rest of the updates are made
-                            video.CustomFields = null;
-                            this.ProcessPipelineStep(pipelineStep, pipelineContext, logger);
-                            return;
+                            item.Editing.BeginEdit();
+                            item["LastSyncTime"] = DateTime.UtcNow.ToString();
+                            item.Editing.EndEdit();
                         }
 
-                        logger.Debug($"Successfully updated the brightcove model '{video.Id}' (pipeline step: {pipelineStep.Name})");
+                        LogDebug($"Updated the brightcove model '{video.Id}'");
                     }
                     else
                     {
-                        logger.Warn($"Ignored changes made to brightcove item '{item.ID}' because the brightcove model '{video.Id}' has been modified since last sync. Please run the pull pipeline to get the latest changes (pipeline step: {pipelineStep.Name})");
+                        LogWarn($"Ignored changes made to brightcove item '{item.ID}' because the brightcove model '{video.Id}' has been modified since last sync. Please run the pull pipeline to get the latest changes");
                     }
                 }
                 else
                 {
-                    logger.Debug($"Ignored the brightcove item '{item.ID}' because it has not been updated since last sync (pipeline step: {pipelineStep.Name})");
+                    LogDebug($"Ignored the brightcove item '{item.ID}' because it has not been updated since last sync");
                 }
+
+                UpdateVariants(itemModelRepository, mappingSettings.VariantMappingSets, itemModel, video);
             }
             catch(Exception ex)
             {
-                logger.Error($"Failed to update the brightcove model because an unexpected error occured (pipeline step: {pipelineStep.Name}, exception: {ex.Message})");
+                LogError($"An unexpected error occured updating the model '{video?.Id}'", ex);
             }
+        }
+
+        private void ApplyMappings(IEnumerable<IMappingSet> mappingSets, ItemModel item, object model)
+        {
+            foreach (IMappingSet mappingSet in mappingSets)
+            {
+                var mappingContext = Mapper.ApplyMapping(mappingSet, item, model);
+
+                if (Mapper.HasErrors(mappingContext))
+                {
+                    LogError($"Failed to apply mapping to the model '{item.GetItemId()}': {Mapper.GetFailedMappings(mappingContext)}");
+                }
+                else
+                {
+                    LogDebug($"Applied mapping to the model '{item.GetItemId()}'");
+                }
+            }
+        }
+
+        public bool DeleteVideo(Video video, ItemModel item)
+        {
+            //The item has been marked for deletion in Sitecore
+            if ((string)item["Delete"] == "1")
+            {
+                LogInfo($"Deleting the brightcove model '{video.Id}' because it has been marked for deletion in Sitecore");
+                service.DeleteVideo(video.Id);
+
+                LogInfo($"Deleting the brightcove item '{item.GetItemId()}' because it has been marked for deleteion in Sitecore");
+                itemModelRepository.Delete(item.GetItemId());
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Updatevideo(Video video)
+        {
+            try
+            {
+                service.UpdateVideo(video);
+            }
+            //This is hacky fix to silent ignore invalid custom fields
+            //This should be removed when a more permant solution is found
+            catch (HttpStatusException ex)
+            {
+                if ((int)ex.Response.StatusCode != 422)
+                    throw ex;
+
+                string message = ex.Response.Content.ReadAsString();
+
+                if (!message.Contains("custom_fields"))
+                    throw ex;
+
+                //Rerun with the invalid custom fields removed so the rest of the updates are made
+                video.CustomFields = null;
+                Updatevideo(video);
+                return;
+            }
+        }
+
+        public void UpdateVariants(IItemModelRepository itemModelRepository, IEnumerable<IMappingSet> mappingSets, ItemModel item, Video model)
+        {
+            var variantItems = itemModelRepository.GetChildren(item.GetItemId());
+
+            foreach(ItemModel variantItem in variantItems)
+            {
+                try
+                {
+                    VideoVariant variantModel = new VideoVariant()
+                    {
+                        Id = model.Id
+                    };
+
+                    ApplyMappings(mappingSets, variantItem, variantModel);
+
+                    if(!ResolveVideoVariant(variantModel, variantItem))
+                    {
+                        return;
+                    }    
+
+                    if(DeleteVideoVariant(variantModel, variantItem))
+                    {
+                        return;
+                    }
+
+                    SyncStatus status = ItemUpdater.GetSyncStatus(variantItem);
+
+                    if (status == SyncStatus.NewItem)
+                    {
+                        CreateVideoVariant(variantModel, variantItem);
+                        LogInfo($"Created the variant model '{model.Id}:{variantModel.Language}'");
+
+                        UpdateVideoVariant(variantModel);
+                        LogInfo($"Updated the variant model '{model.Id}:{variantModel.Language}'");
+                    }
+
+                    if (status == SyncStatus.ItemNewer)
+                    {
+                        UpdateVideoVariant(variantModel);
+                        LogInfo($"Updated the variant model '{model.Id}:{variantModel.Language}'");
+                    }
+
+                    if (status == SyncStatus.ModelNewer)
+                    {
+                        LogWarn($"Ignored the item '{variantItem.GetItemId()}' because it has been modified outside of Sitecore. Please run a sync to get the latest changes.");
+                    }
+
+                    if (status == SyncStatus.Unmodified)
+                    {
+                        LogDebug($"Ignored the item '{variantItem.GetItemId()}' because it has not been modified since last sync.");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    LogError($"An unexpected error occured updating the variant '{variantItem.GetItemId()}'", ex);
+                }
+            }
+        }
+
+        public bool ResolveVideoVariant(VideoVariant videoVariant, ItemModel item)
+        {
+            //If variant is new then continue
+            if(string.IsNullOrWhiteSpace((string)item["LastSyncTime"]))
+            {
+                return true;
+            }
+
+            if(!service.TryGetVideoVariant(videoVariant.Id, videoVariant.Language, out _))
+            {
+                itemModelRepository.Delete(item.GetItemId());
+                LogWarn($"Deleting the item '{item.GetItemId()}' because it could not be resolved to the model '{videoVariant.Id}:{videoVariant.Language}'");
+                return false;
+            }
+
+            return true;
+        }
+
+        public void CreateVideoVariant(VideoVariant videoVariant, ItemModel item)
+        {
+            service.CreateVideoVariant(videoVariant.Id, videoVariant.Name, videoVariant.Language);
+
+            item["LastSyncTime"] = DateTime.UtcNow.ToString();
+            itemModelRepository.Update(item.GetItemId(), item);
+        }
+
+        public void UpdateVideoVariant(VideoVariant videoVariant)
+        {
+            try
+            {
+                service.UpdateVideoVariant(videoVariant);
+            }
+            //This is hacky fix to silent ignore invalid custom fields
+            //This should be removed when a more permant solution is found
+            catch (HttpStatusException ex)
+            {
+                if ((int)ex.Response.StatusCode != 422)
+                    throw ex;
+
+                string message = ex.Response.Content.ReadAsString();
+
+                if (!message.Contains("custom_fields"))
+                    throw ex;
+
+                //Rerun with the invalid custom fields removed so the rest of the updates are made
+                videoVariant.CustomFields = null;
+                UpdateVideoVariant(videoVariant);
+                return;
+            }
+        }
+
+        public bool DeleteVideoVariant(VideoVariant videoVariant, ItemModel itemModel)
+        {
+            //The item has been marked for deletion in Sitecore
+            if ((string)itemModel["Delete"] == "1")
+            {
+                LogInfo($"Deleting the variant '{videoVariant.Id}:{videoVariant.Language}' because it has been marked for deletion in Sitecore");
+                service.DeleteVideoVariant(videoVariant.Id, videoVariant.Language);
+
+                LogInfo($"Deleting the item '{itemModel.GetItemId()}' because it has been marked for deletion in Sitecore");
+                itemModelRepository.Delete(itemModel.GetItemId());
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

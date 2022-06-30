@@ -1,0 +1,23 @@
+﻿---
+ID: "176299e2-fa85-4f11-be51-d969b93fcd8b"
+Parent: "df250ae4-abf5-42ac-9527-53a4f0298063"
+Template: "eb3a967e-9778-4ec1-a6fc-fdabda935927"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Endpoints/Common
+DB: master
+BranchID: "0d21226f-7b04-4ff2-9230-b55245cf6fe7"
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{176299E2-FA85-4F11-BE51-D969B93FCD8B}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210909T212038Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Anonymous

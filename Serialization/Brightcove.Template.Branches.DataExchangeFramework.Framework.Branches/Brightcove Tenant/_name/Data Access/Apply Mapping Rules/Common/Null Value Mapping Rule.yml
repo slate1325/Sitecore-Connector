@@ -1,0 +1,18 @@
+﻿---
+ID: "9ba657e5-52b1-4706-8d02-8474356e5548"
+Parent: "4d2ebf3b-a9f4-467a-8e38-c0b51498fece"
+Template: "d1ba5ad1-e23a-46e3-99cb-a2eaa10cbbff"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Apply Mapping Rules/Common/Null Value Mapping Rule
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211101T040105Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

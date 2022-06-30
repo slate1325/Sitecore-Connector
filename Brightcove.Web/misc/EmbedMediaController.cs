@@ -34,7 +34,8 @@
                 MarkupType = MarkupType.Html,
                 Properties = properties,
                 MediaItem = Sitecore.Context.Database.GetItem(properties.ItemId),
-                PlayerItem = Sitecore.Context.Database.GetItem(properties.PlayerId)
+                PlayerItem = Sitecore.Context.Database.GetItem(properties.PlayerId),
+                Language = rendering.Parameters["Lang"]
             };
 
             args.Properties.Template = args.MediaItem.Template.ID;

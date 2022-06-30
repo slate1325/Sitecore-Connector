@@ -1,0 +1,25 @@
+﻿---
+ID: "e11c95b4-8894-4a00-9468-41dfccc4bc31"
+Parent: "48d62720-95d3-41ce-8e06-48004b9085d1"
+Template: "630c0748-9a38-4233-ab61-38983fd009d6"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Asset Model Properties/Images_Thumbnail_Src
+DB: master
+SharedFields:
+- ID: "158781df-aa2e-4ea9-8d84-a668b11450d7"
+  Hint: PropertyName
+  Value: Images.Thumbnail.Src
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210924T204432Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

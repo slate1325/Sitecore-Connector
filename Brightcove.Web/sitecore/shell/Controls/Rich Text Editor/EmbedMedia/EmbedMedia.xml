@@ -157,6 +157,12 @@
             <Border Padding="5px 4px 5px 5px" Width="150px">
 							<Edit ID="HeightInput" Width="75px" Value="300" Type="number"/>
             </Border>
+				<Border Padding="0px 4px 0px 5px" Width="150px">
+					<Literal Text="Language:"  Width="100px"/>
+				</Border>
+				<Border Padding="5px 4px 5px 5px" Width="150px">
+					<Edit ID="AssetLanguage" Width="75px" Value="" Type="text"/>
+				</Border>
           </GridPanel>
 	        <Edit ID="EmbedInput" Type="Hidden" Value="" />
 	        <Edit ID="SizingInput" Type="Hidden" Value="" />

@@ -1,0 +1,27 @@
+﻿---
+ID: "9f623c7f-51f5-4091-8645-daad69627e67"
+Parent: "3da6f35f-d053-4e9a-97ba-099a77d00270"
+Template: "0ec4d8a7-8e8d-4a20-9f1c-feb7cc07893b"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Brightcove/Video Model Properties
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: |
+    {5C8862A6-7B47-4354-92F6-11EB080E6D0C}
+    {729AEFFB-B5BD-4CD4-958F-E25B50948AC8}
+    {69468E3D-1620-4674-AE35-8279AD8BA8FA}
+    {630C0748-9A38-4233-AB61-38983FD009D6}
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210916T215258Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
