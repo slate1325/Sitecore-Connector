@@ -1,0 +1,22 @@
+﻿---
+ID: "04da5c0c-1da3-4bd6-8c44-03468be93283"
+Parent: "7d44913b-ba2f-473b-a80a-29a9c19c0341"
+Template: "6f7375cc-9942-4e30-8c63-95281b69c65f"
+Path: /sitecore/templates/Branches/Data Exchange/Framework/Branches/Brightcove Tenant/$name/Data Access/Value Accessor Sets/Providers/Sitecore/Label Item Fields/NewLabel Field
+DB: master
+SharedFields:
+- ID: "a011c1d5-1c40-4420-8592-d0ce0306e0dd"
+  Hint: Field
+  Value: "{7747111B-69C6-40AE-993A-7EDC1CC3D02D}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220822T155644Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

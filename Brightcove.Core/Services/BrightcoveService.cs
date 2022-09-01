@@ -1,16 +1,14 @@
-﻿using Brightcove.Core.Models;
+﻿using Brightcove.Core.Exceptions;
+using Brightcove.Core.Extensions;
+using Brightcove.Core.Models;
+using Brightcove.MediaFramework.Brightcove.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Brightcove.Core.Extensions;
-using System.Net.Http.Headers;
-using Brightcove.Core.Exceptions;
-using System.Net;
-using Brightcove.MediaFramework.Brightcove.Entities;
 
 namespace Brightcove.Core.Services
 {
@@ -82,6 +80,22 @@ namespace Brightcove.Core.Services
             return video;
         }
 
+        public Folder CreateFolder(string name)
+        {
+            Folder folder = new Folder();
+            folder.Name = name;
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Content = new StringContent(JsonConvert.SerializeObject(folder), Encoding.UTF8, "application/json");
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders");
+
+            HttpResponseMessage response = SendRequest(request);
+            folder = JsonConvert.DeserializeObject<Folder>(response.Content.ReadAsString());
+
+            return folder;
+        }
+
         public PlayList CreatePlaylist(string name)
         {
             PlayList playlist = new PlayList();
@@ -97,6 +111,75 @@ namespace Brightcove.Core.Services
             playlist = JsonConvert.DeserializeObject<PlayList>(response.Content.ReadAsString());
 
             return playlist;
+        }
+
+        public Label CreateLabel(string path)
+        {
+            Label label = new Label();
+            label.Path = path;
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Content = new StringContent(JsonConvert.SerializeObject(label), Encoding.UTF8, "application/json");
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/labels");
+
+            HttpResponseMessage response = SendRequest(request);
+            label = new Label(JsonConvert.DeserializeObject<Label>(response.Content.ReadAsString()).Path);
+
+            return label;
+        }
+
+        public Label UpdateLabel(Label label)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = new HttpMethod("PATCH");
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/labels/by_path/{label.Path}");
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(label), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            return new Label(JsonConvert.DeserializeObject<Label>(response.Content.ReadAsString()).Path);
+        }
+
+        public void MoveToFolder(Video video, string folderId)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Put;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders/{folderId}/videos/{video.Id}");
+
+            SendRequest(request);
+
+            return;
+        }
+
+        public void RemoveFromFolder(Video video, string folderId)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders/{folderId}/videos/{video.Id}");
+
+            SendRequest(request);
+
+            return;
+        }
+
+        public bool TryGetLabel(string path, out Label label)
+        {
+            //The Brightcove API does not actually include anyway to check if a specific label exists
+            //So we have to do this...
+            IEnumerable<Label> labels = GetLabels();
+            label = labels.Where(l => l.Path == path).FirstOrDefault();
+
+            if(label == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public VideoVariant CreateVideoVariant(string videoId, string videoVariantName, string language)
@@ -171,6 +254,23 @@ namespace Brightcove.Core.Services
             return;
         }
 
+        public void DeleteFolder(string folderId)
+        {
+            if (string.IsNullOrWhiteSpace(folderId))
+            {
+                return;
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders/{folderId}");
+
+            SendRequest(request);
+
+            return;
+        }
+
         public void DeleteVideoVariant(string videoId, string language)
         {
             if (string.IsNullOrWhiteSpace(videoId))
@@ -212,6 +312,23 @@ namespace Brightcove.Core.Services
             HttpResponseMessage response = SendRequest(request);
 
             return JsonConvert.DeserializeObject<Video>(response.Content.ReadAsString());
+        }
+
+        public Folder UpdateFolder(Folder folder)
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = new HttpMethod("PATCH");
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders/{folder.Id}");
+
+            //We can only update the name field (rename) a folder so we ignore all other fields
+            Folder newFolder = new Folder() { Name = folder.Name };
+            
+            request.Content = new StringContent(JsonConvert.SerializeObject(newFolder), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            return JsonConvert.DeserializeObject<Folder>(response.Content.ReadAsString());
         }
 
         public VideoVariant UpdateVideoVariant(VideoVariant videoVariant)
@@ -274,6 +391,17 @@ namespace Brightcove.Core.Services
             SendRequest(request);
         }
 
+        public void DeleteLabel(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.Method = HttpMethod.Delete;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/labels/by_path/{path}");
+            SendRequest(request);
+        }
+
         public PlayList UpdatePlaylist(PlayList playlist)
         {
             HttpRequestMessage request = new HttpRequestMessage();
@@ -307,6 +435,45 @@ namespace Brightcove.Core.Services
             HttpResponseMessage response = SendRequest(request);
 
             return JsonConvert.DeserializeObject<List<PlayList>>(response.Content.ReadAsString());
+        }
+
+        public IEnumerable<Label> GetLabels()
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/labels");
+
+            HttpResponseMessage response = SendRequest(request);
+            Labels labels = JsonConvert.DeserializeObject<Labels>(response.Content.ReadAsString());
+
+            //The brightcove API only returns leaf nodes so we have to generate the rest of the directory tree...
+            HashSet<string> uniquePaths = new HashSet<string>();
+
+            foreach (string path in labels.Paths)
+            {
+                List<string> subPaths = path.Split('/').ToList();
+
+                for (int i = subPaths.Count - 1; i > 1; i--)
+                {
+                    subPaths.RemoveAt(i);
+                    uniquePaths.Add(string.Join("/", subPaths));
+                }
+            }
+
+            return uniquePaths.Select(p => new Label(p)).ToList();
+        }
+
+        public IEnumerable<Folder> GetFolders()
+        {
+            HttpRequestMessage request = new HttpRequestMessage();
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders");
+
+            HttpResponseMessage response = SendRequest(request);
+
+            return JsonConvert.DeserializeObject<List<Folder>>(response.Content.ReadAsString());
         }
 
         public IEnumerable<Video> GetVideos(int offset = 0, int limit = 20, string sort = "", string query = "")
@@ -399,6 +566,39 @@ namespace Brightcove.Core.Services
             }
 
             player = JsonConvert.DeserializeObject<Player>(response.Content.ReadAsString());
+            return true;
+        }
+
+        public bool TryGetFolder(string folderId, out Folder folder)
+        {
+            if (string.IsNullOrWhiteSpace(folderId))
+            {
+                folder = null;
+                return false;
+            }
+
+            HttpRequestMessage request = new HttpRequestMessage();
+            HttpResponseMessage response;
+
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri($"{cmsBaseUrl}/{accountId}/folders/{folderId}");
+
+            try
+            {
+                response = SendRequest(request);
+            }
+            catch (HttpStatusException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    folder = null;
+                    return false;
+                }
+
+                throw ex;
+            }
+
+            folder = JsonConvert.DeserializeObject<Folder>(response.Content.ReadAsString());
             return true;
         }
 
